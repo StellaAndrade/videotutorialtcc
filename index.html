@@ -219,8 +219,7 @@ section{padding:100px 48px;}
 .avatar{
   width:140px;height:140px;border-radius:50%;
   background:var(--gm);border:2px solid var(--green);
-  display:flex;align-items:center;justify-content:center;
-  font-size:52px;flex-shrink:0;
+  flex-shrink:0; object-fit: cover;
 }
 #autor h2{
   font-family:Helvetica, Arial, sans-serif;font-weight:300;
@@ -278,6 +277,11 @@ footer span{
     height: auto !important;
     aspect-ratio: 1 / 1.414 !important;
     max-height: 65vh;
+  }
+
+  /* Oculta o grid no mobile */
+  .grid-bg {
+    display: none !important;
   }
 
   /* Oculta os quadrados decorativos na versão mobile */
@@ -414,7 +418,7 @@ const C = {
 <section id="autor">
   <div class="inner">
     <div class="autor-grid">
-      <div class="avatar">👤</div>
+      <img src="imagemdeperfil.jpg" alt="Foto de perfil de Stella" class="avatar">
       <div>
         <div class="label-lt">Sobre o autor</div>
         <h2 id="j-autor-nome"></h2>
