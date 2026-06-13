@@ -125,7 +125,7 @@ section{padding:100px 48px;}
 .hero-inner h1{
   font-family:Helvetica, Arial, sans-serif;
   font-weight:700;
-  font-size:clamp(22px, 3.2vw, 34px); /* Tamanho do título diminuído conforme solicitado */
+  font-size:clamp(22px, 3.2vw, 34px);
   line-height:1.15;letter-spacing:-.01em;
   color:var(--dk);max-width:780px;margin-bottom:26px;
   text-align: justify;
@@ -211,6 +211,25 @@ section{padding:100px 48px;}
 .cap-desc {font-size:13px;color:var(--dim);line-height:1.5;}
 .cap-dur  {font-family:Helvetica, Arial, sans-serif;font-size:12px;color:#AAAAAA;text-align:right;white-space:nowrap;}
 
+/* ─── BANNER RESPONSIVO ─── */
+.banner-desktop {
+  display: block;
+}
+.banner-mobile-card {
+  display: none;
+  background: #FFF;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.banner-mobile-card p {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
 /* ─── AUTOR ─── */
 #autor{background:var(--dk);padding:100px 48px;}
 .autor-grid{display:grid;grid-template-columns:160px 1fr;gap:56px;align-items:center;}
@@ -229,7 +248,6 @@ section{padding:100px 48px;}
   font-family:Helvetica, Arial, sans-serif;font-size:12px;
   color:var(--green);margin-bottom:20px;letter-spacing:.03em;
 }
-/* Estilo da biografia alterado para herdar tamanho 18px, peso 300 e altura de linha 1.75 */
 .autor-bio{
   font-size:18px;
   font-weight:300;
@@ -249,7 +267,7 @@ footer span{
   font-size:10px;color:#3A5A38;letter-spacing:.08em;
 }
 
-/* ─── RESPONSIVE ─── */
+/* ─── RESPONSIVE MASTER ─── */
 @media(max-width:768px){
   nav         {padding:0 24px;}
   .nav-links  {display:none;}
@@ -263,6 +281,10 @@ footer span{
   .hero-meta  {display:none;}
   .cap-card   {grid-template-columns:32px 1fr;gap:14px;}
   .cap-dur    {display:none;}
+
+  /* Inverte a exibição do banner no mobile para evitar quebras */
+  .banner-desktop { display: none !important; }
+  .banner-mobile-card { display: block !important; }
 }
 </style>
 </head>
@@ -304,12 +326,13 @@ const C = {
   ],
 };
 </script>
+
 <nav>
   <button class="brand" onclick="go('inicio')">TCC <span>·</span> AU</button>
   <nav class="nav-links">
     <a href="#inicio"    data-s="inicio">Início</a>
-    <a href="#video"     data-s="video">Vídeo</a>
     <a href="#sobre"     data-s="sobre">Sobre</a>
+    <a href="#video"     data-s="video">Vídeo</a>
     <a href="#banner"    data-s="banner">Banner</a>
     <a href="#autor"     data-s="autor">Autor</a>
   </nav>
@@ -341,14 +364,6 @@ const C = {
   </div>
 </section>
 
-<section id="video">
-  <div class="inner">
-    <div class="label-lt">Tutorial em vídeo</div>
-    <h2>Assista à apresentação</h2>
-    <div id="j-video"></div>
-  </div>
-</section>
-
 <section id="sobre">
   <div class="inner sobre-grid">
     <div>
@@ -362,34 +377,36 @@ const C = {
   </div>
 </section>
 
+<section id="video">
+  <div class="inner">
+    <div class="label-lt">Tutorial em vídeo</div>
+    <h2>Assista à apresentação</h2>
+    <div id="j-video"></div>
+  </div>
+</section>
+
 <section id="banner">
   <div class="inner">
     <div class="label">Banner do trabalho</div>
     <h2>Banner</h2>
 
-    <div style="margin-bottom:20px;">
-      <a
-        href="A1%20STELLA%20FINAL%20CERTO.pdf"
-        target="_blank"
-        class="btn-dk">
-        Abrir banner em tela cheia
-      </a>
+    <div class="banner-desktop">
+      <div style="margin-bottom:20px;">
+        <a href="A1%20STELLA%20FINAL%20CERTO.pdf" target="_blank" class="btn-dk">
+          Abrir banner em tela cheia
+        </a>
+      </div>
+      <object data="A1%20STELLA%20FINAL%20CERTO.pdf" type="application/pdf" width="100%" height="1200">
+        <p>Seu navegador não conseguiu exibir o PDF. <a href="A1%20STELLA%20FINAL%20CERTO.pdf" target="_blank">Clique aqui para abrir.</a></p>
+      </object>
     </div>
 
-    <object
-      data="A1%20STELLA%20FINAL%20CERTO.pdf"
-      type="application/pdf"
-      width="100%"
-      height="1200">
-
-      <p>
-        Seu navegador não conseguiu exibir o PDF.
-        <a href="A1%20STELLA%20FINAL%20CERTO.pdf" target="_blank">
-          Clique aqui para abrir o banner.
-        </a>
-      </p>
-
-    </object>
+    <div class="banner-mobile-card">
+      <p>Para uma visualização ideal e detalhada do banner técnico A1 em dispositivos móveis, acesse o documento completo em tela cheia.</p>
+      <a href="A1%20STELLA%20FINAL%20CERTO.pdf" target="_blank" class="btn-dk" style="width: 100%; text-align: center;">
+        🗂️ Abrir Banner Completo (PDF)
+      </a>
+    </div>
 
   </div>
 </section>
@@ -488,7 +505,7 @@ const obs = new IntersectionObserver(entries => {
   });
 },{threshold:.4});
 
-['inicio','video','sobre','banner','autor'].forEach(id => {
+['inicio','sobre','video','banner','autor'].forEach(id => {
   const s = document.getElementById(id);
   if(s) obs.observe(s);
 });
