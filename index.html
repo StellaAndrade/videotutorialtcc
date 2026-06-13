@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TCC — Carregando…</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ─── RESET ─── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -30,7 +30,8 @@ img{max-width:100%;display:block;}
 
 /* ─── BASE ─── */
 body{
-  font-family:'Inter',system-ui,sans-serif;
+  /* Fonte alterada conforme solicitado */
+  font-family: 'Swiss721 BT Condensed', 'Arial Narrow', sans-serif;
   font-size:16px;line-height:1.6;
   color:var(--text);background:var(--bg);
   overflow-x:hidden;
@@ -76,7 +77,7 @@ nav{
 /* ─── BUTTONS ─── */
 .btn-dk,.btn-ol,.btn-g,.btn-ol-lt{
   display:inline-block;
-  font-family:'Inter',sans-serif;
+  font-family: 'Swiss721 BT Condensed', 'Arial Narrow', sans-serif;
   font-size:14px;font-weight:500;letter-spacing:.02em;
   cursor:pointer;border:none;
   transition:background .2s,color .2s;
@@ -161,7 +162,7 @@ section{padding:100px 48px;}
 .ph-inner{position:relative;z-index:1;text-align:center;padding:24px;}
 .ph-play{font-size:44px;color:var(--green);margin-bottom:14px;}
 .ph-inner p{font-family:'Space Mono',monospace;font-size:12px;color:var(--gl);}
-.ph-hint{font-size:12px;color:#5C8A58;margin-top:8px;font-family:'Inter',sans-serif;}
+.ph-hint{font-size:12px;color:#5C8A58;margin-top:8px;font-family: 'Swiss721 BT Condensed', 'Arial Narrow', sans-serif;}
 
 /* ─── SOBRE ─── */
 #sobre{background:var(--bg-mid);}
@@ -249,18 +250,15 @@ footer span{
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════════
-     ⚙  CONFIGURAÇÃO — edite somente este bloco
-════════════════════════════════════════════════════ -->
 <script>
 const C = {
-  titulo:      "Título do Seu TCC",
+  titulo:      "Modelo Paramétrico de Referência para Estudo Preliminar de Instituições de Longa Permanência para Idosos (ILPIs).",
   subtitulo:   "Uma linha que resume o objeto do trabalho e sua contribuição para o campo",
-  autor:       "Seu Nome Completo",
+  autor:       "Stella Andrade de Pádua Carvalho",
   instituicao: "Universidade Federal de Minas Gerais",
   curso:       "Arquitetura e Urbanismo",
   ano:         "2026",
-  orientador:  "Prof. Dr. Nome do Orientador",
+  orientador:  "Rejane Magiag Loura",
 
   /* ── Vídeo ── cole aqui só o ID do YouTube (parte após ?v=) */
   youtubeId:   null,          /* ex: "dQw4w9WgXcQ" */
@@ -277,11 +275,11 @@ const C = {
   ],
 
   /* ── Bio ── */
-  bio: "Escreva uma breve apresentação: trajetória acadêmica, áreas de interesse em arquitetura e as motivações que levaram à escolha deste tema.",
+  bio: "Graduanda em Arquitetura e Urbanismo pela Universidade Federal de Minas Gerais (UFMG), desenvolveu sua trajetória acadêmica com interesse em projeto arquitetônico, design computacional paramétrico e aplicação de tecnologias digitais ao processo de projeto. Ao longo da graduação, buscou aprofundar conhecimentos em modelagem tridimensional, visualização arquitetônica e metodologias computacionais voltadas ao apoio à tomada de decisão. A escolha do tema deste trabalho surgiu do interesse em investigar como ferramentas paramétricas e inteligência artificial podem contribuir para a concepção de ambientes mais inclusivos e adaptáveis, especialmente diante do envelhecimento da população e da crescente demanda por espaços que promovam qualidade de vida, acessibilidade e bem-estar para pessoas idosas.",
 
   /* ── Capítulos do tutorial ── */
   capitulos: [
-    { n:"01", titulo:"Introdução",           dur:"—:——", desc:"Contextualização do tema e objetivos da pesquisa" },
+    { n:"01", titulo:"Introdução",          dur:"—:——", desc:"Contextualização do tema e objetivos da pesquisa" },
     { n:"02", titulo:"Referencial Teórico",  dur:"—:——", desc:"Fundamentação teórica e revisão bibliográfica" },
     { n:"03", titulo:"Metodologia",          dur:"—:——", desc:"Processo projetual e ferramentas utilizadas" },
     { n:"04", titulo:"Resultados",           dur:"—:——", desc:"Apresentação das propostas e análises" },
@@ -289,10 +287,6 @@ const C = {
   ],
 };
 </script>
-<!-- ════════════════════════════════════════════════════ -->
-
-
-<!-- NAV -->
 <nav>
   <button class="brand" onclick="go('inicio')">TCC <span>·</span> AU</button>
   <nav class="nav-links">
@@ -304,7 +298,6 @@ const C = {
   </nav>
 </nav>
 
-<!-- HERO -->
 <section id="inicio">
   <div class="grid-bg"></div>
   <div class="hero-inner inner">
@@ -320,7 +313,6 @@ const C = {
   </div>
 </section>
 
-<!-- VIDEO -->
 <section id="video">
   <div class="inner">
     <div class="label-lt">Tutorial em vídeo</div>
@@ -329,7 +321,6 @@ const C = {
   </div>
 </section>
 
-<!-- SOBRE -->
 <section id="sobre">
   <div class="inner sobre-grid">
     <div>
@@ -343,7 +334,6 @@ const C = {
   </div>
 </section>
 
-<!-- CAPÍTULOS -->
 <section id="capitulos">
   <div class="inner">
     <div class="label">Estrutura do tutorial</div>
@@ -352,7 +342,6 @@ const C = {
   </div>
 </section>
 
-<!-- AUTOR -->
 <section id="autor">
   <div class="inner">
     <div class="autor-grid">
@@ -371,7 +360,6 @@ const C = {
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span id="j-foot-l"></span>
   <span id="j-foot-r"></span>
