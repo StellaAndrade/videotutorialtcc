@@ -107,7 +107,6 @@ section{padding:100px 48px;}
   background-size:60px 60px;
 }
 
-/* Estilo para garantir o isolamento e sumir com os quadrados em telas menores que 1360px */
 .quadrado-decorativo {
   position: absolute;
   width: 60px;
@@ -126,7 +125,7 @@ section{padding:100px 48px;}
 .hero-inner h1{
   font-family:Helvetica, Arial, sans-serif;
   font-weight:700;
-  font-size:clamp(26px,3.8vw,42px);
+  font-size:clamp(22px, 3.2vw, 34px); /* Tamanho do título diminuído conforme solicitado */
   line-height:1.15;letter-spacing:-.01em;
   color:var(--dk);max-width:780px;margin-bottom:26px;
   text-align: justify;
@@ -230,7 +229,14 @@ section{padding:100px 48px;}
   font-family:Helvetica, Arial, sans-serif;font-size:12px;
   color:var(--green);margin-bottom:20px;letter-spacing:.03em;
 }
-.autor-bio{font-size:15px;color:#B8B8A8;line-height:12px;text-align:justify;}
+/* Estilo da biografia alterado para herdar tamanho 18px, peso 300 e altura de linha 1.75 */
+.autor-bio{
+  font-size:18px;
+  font-weight:300;
+  line-height:1.75;
+  color:#B8B8A8;
+  text-align:justify;
+}
 
 /* ─── FOOTER ─── */
 footer{
@@ -397,7 +403,7 @@ const C = {
         <h2 id="j-autor-nome"></h2>
         <p class="autor-role" id="j-autor-role"></p>
         <p class="autor-bio"  id="j-autor-bio"></p>
-        <p style="color:#B8B8A8; font-size:14px; margin-top:20px;">
+        <p style="color:#B8B8A8; font-size:18px; font-weight:300; line-height:1.75; margin-top:20px;">
           Caso queira contactar o autor, envie um e-mail para: 
           <a id="j-email" style="color:var(--green); font-weight:500; text-decoration:underline;"></a>
         </p>
