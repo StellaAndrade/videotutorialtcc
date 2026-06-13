@@ -112,9 +112,9 @@ section{padding:100px 48px;}
 }
 .hero-inner h1{
   font-family:Helvetica, Arial, sans-serif;
-  font-weight:300;
+  font-weight:700; /* Título alterado para Negrito */
   font-size:clamp(30px,4.8vw,54px);
-  line-height:1.06;letter-spacing:-.01em;
+  line-height:1.1;letter-spacing:-.01em;
   color:var(--dk);max-width:780px;margin-bottom:26px;
 }
 .hero-sub{
@@ -130,8 +130,9 @@ section{padding:100px 48px;}
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
 .hero-meta{
   position:absolute;right:0;bottom:0;
-  font-family:Helvetica, Arial, sans-serif;font-size:11px;
-  color:#AAAAAA;line-height:2.2;text-align:right;
+  font-family:Helvetica, Arial, sans-serif;
+  font-size:14px; /* Tamanho da fonte aumentado conforme solicitado */
+  color:#AAAAAA;line-height:1.6;text-align:right;
 }
 
 /* ─── VIDEO ─── */
@@ -250,8 +251,9 @@ footer span{
 
 <script>
 const C = {
-  titulo:      "Modelo Paramétrico de Referência para Estudo Preliminar de Instituições de Longa Permanência para Idosos (ILPIs).",
-  subtitulo:   "Método dinâmico de suporte à decisão, que otimiza a etapa de estudos preliminares e auxilia arquitetos na concepção de soluções alinhadas às normativas vigentes e às necessidades da população idosa.",
+  /* Título alterado para ALL CAPS mantendo o 's' de ILPIs minúsculo */
+  titulo:      "MODELO PARAMÉTRICO DE REFERÊNCIA PARA ESTUDO PRELIMINAR DE INSTITUIÇÕES DE LONGA PERMANÊNCIA PARA IDOSOS (ILPIs).",
+  subtitulo:   "Mét dynamic de suporte à decisão, que otimiza a etapa de estudos preliminares e auxilia arquitetos na concepção de soluções alinhadas às normativas vigentes e às necessidades da população idosa.",
   autor:       "Stella Andrade de Pádua Carvalho",
   instituicao: "Universidade Federal de Minas Gerais",
   curso:       "Arquitetura e Urbanismo",
@@ -261,7 +263,7 @@ const C = {
   /* ── Vídeo ── cole aqui só o ID do YouTube (parte após ?v=) */
   youtubeId:   null,          /* ex: "dQw4w9WgXcQ" */
   linkTCC:     "#",
-  linkBanner:  "A1%20STELLA%20FINAL%20CERTO.pdf", /* URL ajustada para o botão principal do Hero */
+  linkBanner:  "A1%20STELLA%20FINAL%20CERTO.pdf", 
 
   /* ── Contato ── */
   email:       "voce@email.com",
@@ -298,7 +300,18 @@ const C = {
 </nav>
 
 <section id="inicio">
-  <div class="grid-bg"></div>
+  <div class="grid-bg">
+    <div style="position:absolute; top:60px; left:600px; width:60px; height:60px; background:#ffacd1;"></div>
+    <div style="position:absolute; top:60px; left:840px; width:60px; height:60px; background:#ff7272;"></div>
+    <div style="position:absolute; top:120px; left:900px; width:60px; height:60px; background:#8ac8fb;"></div>
+    <div style="position:absolute; top:180px; left:840px; width:60px; height:60px; background:#8ca36a;"></div>
+    <div style="position:absolute; top:240px; left:960px; width:60px; height:60px; background:#f7e07f;"></div>
+    <div style="position:absolute; top:300px; left:900px; width:60px; height:60px; background:#999999;"></div>
+    <div style="position:absolute; top:120px; left:1080px; width:60px; height:60px; background:#ffacd1;"></div>
+    <div style="position:absolute; top:360px; left:840px; width:60px; height:60px; background:#8ac8fb;"></div>
+    <div style="position:absolute; top:240px; left:1140px; width:60px; height:60px; background:#ff7272;"></div>
+  </div>
+  
   <div class="hero-inner inner">
     <div class="label" id="j-label"></div>
     <h1 id="j-titulo"></h1>
@@ -306,7 +319,7 @@ const C = {
     <div class="tags"   id="j-tags"></div>
     <div class="hero-ctas">
       <button class="btn-dk" onclick="go('video')">▶ Assistir ao tutorial</button>
-      <a id="j-link-banner" class="btn-ol" target="_blank">↓ Acessar banner</a>
+      <button class="btn-ol" onclick="go('banner')">↓ Acessar banner</button>
     </div>
     <div class="hero-meta" id="j-meta"></div>
   </div>
@@ -401,7 +414,6 @@ document.title = `TCC — ${C.titulo}`;
 el('j-label').textContent = `Trabalho de Conclusão de Curso — ${C.ano}`;
 el('j-titulo').textContent = C.titulo;
 el('j-sub').textContent    = C.subtitulo;
-el('j-link-banner').href = C.linkBanner;
 el('j-meta').innerHTML     =
   `<div>Orientador(a): ${C.orientador}</div><div>${C.autor} — ${C.ano}</div>`;
 
