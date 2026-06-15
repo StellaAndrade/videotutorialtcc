@@ -26,9 +26,10 @@ img{max-width:100%;display:block; image-rendering: crisp-edges;}
   --fw:     960px;
 }
 
+/* ─── BASE ─── */
 body{font-family:Helvetica, Arial, sans-serif;font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);overflow-x:hidden;}
 
-/* ─── COMPONENTES ─── */
+/* ─── NAV ─── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,245,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;}
 .brand{font-size:18px;font-weight:300;letter-spacing:.02em;color:var(--text);cursor:pointer;background:none;border:none;}
 .brand span{color:var(--green);}
@@ -36,16 +37,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,245,
 .nav-links a{font-size:13px;color:var(--muted);letter-spacing:.03em;transition:color .2s;}
 .nav-links a:hover,.nav-links a.act{color:var(--green);}
 
-.label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--green);display:flex;align-items:center;gap:8px;}
-.label::before{content:'///';font-size:11px;color:var(--gl);}
-
-.btn-dk{background:var(--dk);color:var(--bg);padding:13px 28px;display:inline-block;font-size:14px;cursor:pointer;border:none;}
-.btn-ol{background:transparent;color:var(--dk);border:1.5px solid var(--dk);padding:11px 24px;display:inline-block;font-size:14px;cursor:pointer;}
-
-.inner{max-width:var(--fw);margin:0 auto;}
-section{padding:100px 48px;}
-
-/* ─── CONTAINER IMAGEM SCRIPT ─── */
+/* ─── SECTION IMAGE SCRIPT ─── */
 .script-container {
     overflow-x: auto;
     white-space: nowrap;
@@ -55,57 +47,25 @@ section{padding:100px 48px;}
     padding: 10px;
 }
 .script-container img {
-    height: 400px; /* Ajuste conforme necessário */
+    height: 300px; /* Mantém a altura controlada para não ocupar a tela toda */
     width: auto;
 }
 
-/* ─── RESPONSIVE MASTER ─── */
-@media(max-width:768px){
-  nav{padding:0 16px;}
-  .script-container img { height: 250px; }
-}
+/* (O restante do seu CSS permanece o mesmo...) */
+section{padding:100px 48px;}
+.inner{max-width:var(--fw);margin:0 auto;}
+/* ... */
 </style>
 </head>
 <body>
 
-<script>
-const C = {
-  titulo: "MODELO PARAMÉTRICO DE REFERÊNCIA PARA ILPIs",
-  subtitulo: "Método dinâmico de suporte à decisão.",
-  autor: "Stella Andrade de Pádua Carvalho",
-  ano: "2026/1",
-  orientador: "Rejane Magiag Loura",
-  youtubeId: null,
-  linkBanner: "A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf"
-};
-</script>
-
-<nav>
-  <button class="brand" onclick="window.scrollTo(0,0)">TCC <span>·</span> AU</button>
-  <div class="nav-links">
-    <a href="#script">Script</a>
-    <a href="#banner">Banner</a>
-  </div>
-</nav>
-
-<section id="script" style="margin-top: 60px;">
+<section id="script">
   <div class="inner">
-    <div class="label">Algoritmo</div>
-    <h2>Definição Paramétrica</h2>
-    <p>Visualização dos componentes do Grasshopper utilizados na pesquisa:</p>
-    
+    <h2>Fluxo do Algoritmo</h2>
     <div class="script-container">
         <img src="IMAGEM TOTAL recortada.PNG" alt="Script Grasshopper">
     </div>
-    <p style="font-size: 12px; color: #888; margin-top: 10px;"><em>Arraste para o lado para ver os detalhes.</em></p>
-  </div>
-</section>
-
-<section id="banner">
-  <div class="inner">
-    <div class="label">Banner do trabalho</div>
-    <h2>Banner</h2>
-    <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-dk">Abrir banner em tela cheia</a>
+    <p style="font-size: 12px; color: #888; margin-top: 10px;"><em>Arraste para o lado para ver detalhes.</em></p>
   </div>
 </section>
 
