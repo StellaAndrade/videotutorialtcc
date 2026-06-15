@@ -22,22 +22,72 @@ img{max-width:100%;display:block; image-rendering: crisp-edges;}
   --gm:     #444444;
   --text:   #1C1C1C;
   --muted:  #5A5A5A;
+  --dim:    #888;
   --border: #E0E0D8;
   --fw:     960px;
 }
 
 /* ─── BASE ─── */
-body{font-family:Helvetica, Arial, sans-serif;font-size:16px;line-height:1.6;color:var(--text);background:var(--bg);overflow-x:hidden;}
+body{
+  font-family: Helvetica, Arial, sans-serif;
+  font-size:16px;line-height:1.6;
+  color:var(--text);background:var(--bg);
+  overflow-x:hidden;
+}
 
 /* ─── NAV ─── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,245,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;}
-.brand{font-size:18px;font-weight:300;letter-spacing:.02em;color:var(--text);cursor:pointer;background:none;border:none;}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(248,248,245,.94);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.brand{
+  font-family:Helvetica, Arial, sans-serif;
+  font-size:18px;font-weight:300;letter-spacing:.02em;
+  color:var(--text);cursor:pointer;
+  background:none;border:none;
+}
 .brand span{color:var(--green);}
 .nav-links{display:flex;gap:28px;}
-.nav-links a{font-size:13px;color:var(--muted);letter-spacing:.03em;transition:color .2s;}
+.nav-links a{
+  font-size:13px;color:var(--muted);letter-spacing:.03em;
+  transition:color .2s;
+}
 .nav-links a:hover,.nav-links a.act{color:var(--green);}
 
-/* ─── SECTION IMAGE SCRIPT ─── */
+/* ─── LABELS ─── */
+.label,.label-lt{
+  font-family:Helvetica, Arial, sans-serif;
+  font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+.label   {color:var(--green);}
+.label-lt{color:var(--gl);}
+.label::before,.label-lt::before{
+  content:'///';font-size:11px;color:var(--gl);
+}
+
+/* ─── BUTTONS ─── */
+.btn-dk,.btn-ol,.btn-g,.btn-ol-lt{
+  display:inline-block;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size:14px;font-weight:500;letter-spacing:.02em;
+  cursor:pointer;border:none;
+  transition:background .2s,color .2s;
+}
+.btn-dk    {background:var(--dk);color:var(--bg);padding:13px 28px;}
+.btn-dk:hover{background:#333333;}
+.btn-ol    {background:transparent;color:var(--dk);border:1.5px solid var(--dk);padding:11px 24px;}
+.btn-ol:hover{background:var(--dk);color:var(--bg);}
+
+/* ─── SHARED ─── */
+.inner{max-width:var(--fw);margin:0 auto;}
+section{padding:100px 48px;}
+
+/* ─── SCRIPT CONTAINER (NOVO) ─── */
 .script-container {
     overflow-x: auto;
     white-space: nowrap;
@@ -47,17 +97,91 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,248,245,
     padding: 10px;
 }
 .script-container img {
-    height: 300px; /* Mantém a altura controlada para não ocupar a tela toda */
+    height: 300px;
     width: auto;
 }
 
-/* (O restante do seu CSS permanece o mesmo...) */
-section{padding:100px 48px;}
-.inner{max-width:var(--fw);margin:0 auto;}
-/* ... */
+/* ─── RESTO DO CSS ORIGINAL ─── */
+#inicio{min-height:100vh;padding:0 48px;display:flex;align-items:center;position:relative;overflow:hidden;}
+.grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(160,160,148,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(160,160,148,.3) 1px,transparent 1px);background-size:60px 60px;}
+.quadrado-decorativo{position:absolute;width:60px;height:60px;}
+@media(max-width: 1360px){.quadrado-decorativo{display:none;}}
+.hero-inner{max-width:var(--fw);margin:0 auto;padding:120px 0 80px;position:relative;width:100%;}
+.hero-inner h1{font-weight:700;font-size:clamp(22px, 3.2vw, 34px);line-height:1.15;letter-spacing:-.01em;color:var(--dk);max-width:780px;margin-bottom:26px;text-align:justify;}
+.hero-sub{font-size:18px;font-weight:300;line-height:1.75;color:var(--muted);max-width:520px;margin-bottom:20px;text-align:justify;}
+.hero-meta{position:absolute;right:0;bottom:0;font-size:14px;color:#AAAAAA;line-height:1.6;text-align:right;}
+#video{background:var(--dk);padding:80px 48px;}
+#video h2{font-weight:300;font-size:clamp(26px,3.5vw,40px);color:var(--bg);margin-bottom:36px;}
+.video-wrap{position:relative;padding-top:56.25%;}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+#sobre{background:var(--bg-mid);}
+.sobre-grid{display:grid;grid-template-columns:200px 1fr;gap:60px;align-items:start;}
+#sobre h2{font-weight:300;font-size:clamp(26px,3vw,36px);color:var(--dk);margin-bottom:24px;}
+#sobre p{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:16px;text-align:justify;}
+.banner-object{width:100%;height:1200px;border:none;}
+#autor{background:var(--dk);padding:100px 48px;}
+.autor-grid{display:grid;grid-template-columns:160px 1fr;gap:56px;align-items:center;}
+.avatar{width:140px;height:140px;border-radius:50%;background:var(--gm);border:2px solid var(--green);object-fit:cover;}
+#autor h2{font-weight:300;font-size:clamp(26px,3.5vw,40px);color:var(--bg);margin-bottom:8px;}
+.autor-bio{font-size:18px;font-weight:300;line-height:1.75;color:#B8B8A8;text-align:justify;}
+footer{background:var(--dkr);padding:26px 48px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+footer span{font-size:10px;color:#666666;letter-spacing:.08em;}
 </style>
 </head>
 <body>
+
+<script>
+const C = {
+  titulo: "MODELO PARAMÉTRICO DE REFERÊNCIA PARA ESTUDO PRELIMINAR DE INSTITUIÇÕES DE LONGA PERMANÊNCIA PARA IDOSOS (ILPIs)",
+  subtitulo: "Método dinâmico de suporte à decisão, que otimiza a etapa de estudos preliminares e auxilia arquitetos na concepção de soluções alinhadas às normativas vigentes e às necessidades da população idosa.",
+  autor: "Stella Andrade de Pádua Carvalho",
+  instituicao: "Universidade Federal de Minas Gerais",
+  curso: "Arquitetura e Urbanismo",
+  ano: "2026/1",
+  orientador: "Rejane Magiag Loura",
+  youtubeId: null,
+  linkBanner: "A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf",
+  email: "stella.andradepc@gmail.com",
+  resumo: ["Neste vídeo tutorial, é apresentado o passo a passo para a elaboração de estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs) por meio do script em Grasshopper desenvolvido neste Trabalho de Conclusão de Curso."],
+  bio: "Stella Andrade é graduanda em Arquitetura e Urbanismo pela Universidade Federal de Minas Gerais (UFMG), com interesse em tecnologias digitais voltadas à arquitetura e ao urbanismo.",
+};
+</script>
+
+<nav>
+  <button class="brand" onclick="go('inicio')">TCC <span>·</span> AU</button>
+  <nav class="nav-links">
+    <a href="#inicio" data-s="inicio">Início</a>
+    <a href="#sobre" data-s="sobre">Sobre</a>
+    <a href="#video" data-s="video">Vídeo</a>
+    <a href="#script" data-s="script">Script</a>
+    <a href="#banner" data-s="banner">Banner</a>
+    <a href="#autor" data-s="autor">Autor</a>
+  </nav>
+</nav>
+
+<section id="inicio">
+  <div class="grid-bg"></div>
+  <div class="hero-inner inner">
+    <div class="label" id="j-label"></div>
+    <h1 id="j-titulo"></h1>
+    <p class="hero-sub" id="j-sub"></p>
+    <button class="btn-dk" onclick="go('video')">Assistir ao tutorial</button>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="inner sobre-grid">
+    <div><div class="label">Sobre</div></div>
+    <div><h2 id="j-resumo-h">O que você vai encontrar</h2><div id="j-resumo"></div></div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="inner">
+    <h2>Assista ao vídeo</h2>
+    <div id="j-video"></div>
+  </div>
+</section>
 
 <section id="script">
   <div class="inner">
@@ -65,10 +189,39 @@ section{padding:100px 48px;}
     <div class="script-container">
         <img src="IMAGEM TOTAL recortada.PNG" alt="Script Grasshopper">
     </div>
-    <p style="font-size: 12px; color: #888; margin-top: 10px;"><em>Arraste para o lado para ver detalhes.</em></p>
+    <p style="font-size: 12px; color: #888; margin-top: 10px;"><em>Arraste para o lado para visualizar detalhes.</em></p>
   </div>
 </section>
 
+<section id="banner">
+  <div class="inner">
+    <h2>Banner</h2>
+    <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-dk">Abrir banner em tela cheia</a>
+  </div>
+</section>
+
+<section id="autor">
+  <div class="inner">
+    <div class="autor-grid">
+      <img src="imagemdeperfil.jpg" alt="Foto" class="avatar">
+      <div>
+        <h2 id="j-autor-nome"></h2>
+        <p class="autor-bio" id="j-autor-bio"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function go(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+const el = (id) => document.getElementById(id);
+el('j-titulo').textContent = C.titulo;
+el('j-sub').textContent = C.subtitulo;
+el('j-autor-nome').textContent = C.autor;
+el('j-autor-bio').textContent = C.bio;
+C.resumo.forEach(txt => { const p = document.createElement('p'); p.textContent = txt; el('j-resumo').appendChild(p); });
+</script>
 </body>
 </html>
+
 
