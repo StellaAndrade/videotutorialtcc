@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -51,7 +51,18 @@ body {
   overflow-x: hidden;
 }
 
-h1 { font-size: clamp(2.25rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; color: var(--text-main); margin-bottom: 24px; max-width: 700px; }
+/* Tipografia Hero - Caixa Alta e Justificada */
+h1 { 
+  font-size: clamp(2rem, 3.5vw, 3.2rem); 
+  font-weight: 700; 
+  letter-spacing: -0.02em; 
+  line-height: 1.2; 
+  color: var(--text-main); 
+  margin-bottom: 24px; 
+  max-width: 680px; 
+  text-transform: uppercase;
+  text-align: justify;
+}
 h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); font-weight: 600; letter-spacing: -0.01em; color: var(--text-main); margin-bottom: 16px; }
 p  { line-height: 1.8; color: var(--text-muted); }
 
@@ -141,39 +152,50 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   position: relative; min-height: 100vh;
   display: flex; align-items: center; overflow: hidden;
 }
-.hero-bg { position: absolute; inset: 0; overflow: hidden; z-index: -1; pointer-events: none; }
 
-/* Novo fundo com Grid e Quadrados */
-.grid-bg {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-position: center top;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+/* Container de Arte Abstrata (Planta Baixa) */
+.art-container {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 600px;
+  pointer-events: none;
+  z-index: 1;
 }
-.quadrado-decorativo {
+
+.art-block {
   position: absolute;
   width: 60px; height: 60px;
-  opacity: 0.85;
   mix-blend-mode: multiply;
+  opacity: 0.9;
 }
 
 .hero-inner { padding-top: 140px; padding-bottom: 80px; position: relative; z-index: 10; width: 100%; }
-.hero-sub { font-size: clamp(1.1rem, 2vw, 1.25rem); color: var(--text-muted); margin-bottom: 32px; max-width: 580px; }
+
+.hero-sub { 
+  font-size: clamp(1.1rem, 2vw, 1.25rem); 
+  color: var(--text-muted); 
+  margin-bottom: 32px; 
+  max-width: 680px;
+  text-align: justify;
+}
+
 .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; }
 .tags span {
-  background: rgba(255, 255, 255, 0.6); color: var(--text-main);
-  border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--text-main);
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
   padding: 6px 14px; font-size: 12px; font-weight: 500; letter-spacing: 0.02em;
-  backdrop-filter: blur(8px);
 }
 .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
 .hero-meta {
-  position: absolute; right: 0; bottom: 0;
-  font-size: 13px; color: var(--text-muted); text-align: right;
+  margin-top: 32px;
+  font-size: 13px; 
+  color: var(--text-muted); 
+  text-align: left;
+  font-weight: 500;
 }
 
 /* ─── TEXTOS DINÂMICOS ─── */
@@ -229,6 +251,10 @@ footer {
 footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 
 /* ─── MOBILE RESPONSIVE ─── */
+@media(max-width: 900px) {
+  .art-container { display: none; } /* Oculta a arte em telas menores para priorizar a leitura */
+}
+
 @media(max-width: 768px) {
   nav { width: calc(100% - 32px); top: 16px; padding: 8px 16px; justify-content: center; }
   .brand { display: none; }
@@ -238,11 +264,10 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
   section { padding: 60px 16px; }
   .card { padding: 32px 24px; border-radius: var(--radius-md); }
   .grid-2, .autor-grid { grid-template-columns: 1fr; gap: 32px; }
-  .hero-inner { padding-top: 120px; }
-  .hero-meta { position: relative; right: 0; text-align: left; margin-top: 40px; }
   
-  /* Ocultar quadrados em telas menores para não sobrepor o texto */
-  .quadrado-decorativo { display: none; }
+  h1 { text-align: left; }
+  .hero-sub { text-align: left; }
+  .hero-inner { padding-top: 120px; }
   
   .banner-mobile-card { display: block; }
   .banner-fullscreen-box { display: none; }
@@ -295,21 +320,29 @@ const C = {
 </nav>
 
 <section id="inicio" class="hero">
-  <div class="hero-bg">
-    <div class="grid-bg">
-      <!-- Ancora centralizada para garantir que o grid funcione bem em qualquer tamanho de monitor -->
-      <div style="position: absolute; left: 50%; top: 0; width: 100%; height: 100%;">
-        <div class="quadrado-decorativo" style="top: 120px; margin-left: 300px; background:#ffacd1;"></div>
-        <div class="quadrado-decorativo" style="top: 180px; margin-left: 420px; background:#ff7272;"></div>
-        <div class="quadrado-decorativo" style="top: 240px; margin-left: 360px; background:#8ac8fb;"></div>
-        <div class="quadrado-decorativo" style="top: 300px; margin-left: 480px; background:#8ca36a;"></div>
-        <div class="quadrado-decorativo" style="top: 360px; margin-left: 300px; background:#f7e07f;"></div>
-        <div class="quadrado-decorativo" style="top: 420px; margin-left: 420px; background:#999999;"></div>
-        <div class="quadrado-decorativo" style="top: 240px; margin-left: 540px; background:#ffacd1;"></div>
-        <div class="quadrado-decorativo" style="top: 480px; margin-left: 360px; background:#8ac8fb;"></div>
-        <div class="quadrado-decorativo" style="top: 360px; margin-left: 600px; background:#ff7272;"></div>
-      </div>
-    </div>
+  <!-- Arte abstrata baseada na planta -->
+  <div class="art-container">
+    <div class="art-block" style="top: 0px; left: 180px; background: #AECDF2;"></div>
+    <div class="art-block" style="top: 60px; left: 240px; background: #F6E6AA;"></div>
+    <div class="art-block" style="top: 120px; left: 180px; background: #F4C4D8;"></div>
+    <div class="art-block" style="top: 120px; left: 60px; background: #C4AD81;"></div>
+    <div class="art-block" style="top: 180px; left: 0px; background: #F6E6AA;"></div>
+    
+    <!-- Bloco principal (Fundo Cinza Claro) -->
+    <div style="position: absolute; top: 180px; left: 60px; width: 180px; height: 300px; background: #F0F0F0; border: 1px solid var(--border-light); z-index: -1;"></div>
+    
+    <div class="art-block" style="top: 240px; left: 120px; background: #AECDF2;"></div>
+    <div class="art-block" style="top: 300px; left: 120px; height: 120px; background: #A4B792;"></div>
+    <div class="art-block" style="top: 360px; left: 60px; background: #F2A2A2;"></div>
+    <div class="art-block" style="top: 420px; left: 60px; background: #C4AD81;"></div>
+    <div class="art-block" style="top: 420px; left: 120px; background: #D0D0D0;"></div>
+    <div class="art-block" style="top: 420px; left: 180px; height: 120px; background: #F6E6AA;"></div>
+    <div class="art-block" style="top: 480px; left: 60px; width: 120px; background: #F4C4D8;"></div>
+    
+    <div class="art-block" style="top: 540px; left: -100px; background: #F4C4D8;"></div>
+    <div class="art-block" style="top: 600px; left: -40px; background: #F2A2A2;"></div>
+    <div class="art-block" style="top: 600px; left: 20px; background: #F0F0F0;"></div>
+    <div class="art-block" style="top: 570px; left: 240px; background: #AECDF2;"></div>
   </div>
   
   <div class="inner hero-inner">
@@ -328,6 +361,7 @@ const C = {
         Acessar banner
       </button>
     </div>
+    
     <div class="hero-meta" id="j-meta"></div>
   </div>
 </section>
@@ -445,7 +479,7 @@ document.title = `TCC — ${C.titulo}`;
 el('j-label').textContent = `Trabalho de Conclusão de Curso — ${C.ano}`;
 el('j-titulo').textContent = C.titulo;
 el('j-sub').textContent    = C.subtitulo;
-el('j-meta').innerHTML     = `<div style="font-weight: 500;">Orientador(a): ${C.orientador}</div><div>${C.autor} — ${C.ano}</div>`;
+el('j-meta').innerHTML     = `Orientador(a): ${C.orientador} &nbsp;·&nbsp; ${C.autor} — ${C.ano}`;
 
 [C.instituicao, C.curso].forEach(t => {
   const s = document.createElement('span');
@@ -508,4 +542,3 @@ const obs = new IntersectionObserver(entries => {
 </script>
 </body>
 </html>
-
