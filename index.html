@@ -194,6 +194,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   font-variant-numeric: tabular-nums;
 }
 
+/* ─── SEÇÃO: TEXTOS DE APOIO (descrição de vídeo / galeria) ─── */
+.section-desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin-top: 8px;
+}
+
 /* ─── VIDEO & BANNER ─── */
 .video-wrap, .video-ph { border-radius: var(--radius-md); overflow: hidden; box-shadow: inset 0 0 0 1px var(--border); }
 .video-wrap { position: relative; padding-top: 56.25%; background: var(--border-light); }
@@ -290,6 +298,10 @@ const C = {
   /* ── Fotos da Galeria (1 a 11) ── */
   galeria: Array.from({ length: 8 }, (_, i) => `foto${i + 1}.jpg`),
 
+  /* ── Textos de apoio das seções ── edite livremente aqui ── */
+  videoDesc:   "Descrição do vídeo — adicione aqui um breve resumo do que será demonstrado no tutorial.",
+  galeriaDesc: "Descrição da galeria — adicione aqui um breve texto de contexto sobre as imagens exibidas.",
+
   /* ── Sobre o projeto ── */
   resumo: [
     "O projeto consiste no desenvolvimento de um modelo paramétrico de referência para apoiar estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs). Adotando como estudo de caso uma unidade para 20 residentes com dependência grau III, o modelo atua como um método dinâmico de suporte à decisão projetual, auxiliando arquitetos na geração, avaliação e comparação de alternativas de projeto. Fundamentado nos princípios da eficiência espacial e da dignidade do envelhecimento, o sistema integra parâmetros normativos, espaciais e ambientais, como acessibilidade, insolação, ventilação, volumetria e relações de adjacência, com o objetivo de orientar a concepção de ambientes acessíveis, confortáveis e promotores de qualidade de vida, em conformidade com a RDC 502, a NBR 9050 e o Estatuto da Pessoa Idosa."
@@ -379,6 +391,7 @@ const C = {
       <div>
         <div class="label">Galeria</div>
         <h2 style="margin: 0;">Imagens de ILPIs mineiras divulgadas pelo MPMG:</h2>
+        <p class="section-desc" id="j-galeria-desc"></p>
       </div>
       <div class="flex items-center gap-4">
         <span class="gallery-counter" id="j-gal-counter">1 / 11</span>
@@ -406,6 +419,7 @@ const C = {
     <div class="mb-4">
       <div class="label">Tutorial em vídeo</div>
       <h2>Assista ao passo a passo</h2>
+      <p class="section-desc" id="j-video-desc"></p>
     </div>
     <div id="j-video"></div>
   </div>
@@ -511,6 +525,10 @@ el('j-meta').innerHTML     = `<div style="font-weight: 500;">Orientador(a): ${C.
   s.textContent = t;
   el('j-tags').appendChild(s);
 });
+
+/* ─── TEXTOS DE APOIO (vídeo / galeria) ─── */
+el('j-video-desc').textContent   = C.videoDesc;
+el('j-galeria-desc').textContent = C.galeriaDesc;
 
 /* ─── CONSTRUÇÃO DA GALERIA ─── */
 const track = el('j-gallery-track');
@@ -624,8 +642,6 @@ const obs = new IntersectionObserver(entries => {
 </script>
 </body>
 </html>
-
-
 
 
 
