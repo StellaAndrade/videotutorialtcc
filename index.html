@@ -186,8 +186,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   min-width: 100%;
   aspect-ratio: 2.2 / 1; /* Mais horizontal no desktop para ocupar menos espaço (estilo arquitetura) */
   max-height: 500px;
-  object-fit: cover;
-  background: var(--bg-color); /* Fundo enquanto carrega */
+  object-fit: contain; /* Nunca corta a foto — encaixa inteira, com respiro ao redor quando a proporção não bate */
+  background: var(--border-light); /* Fundo/"moldura" visível nas laterais ou topo/base quando a foto não preenche tudo */
+  padding: 10px;
+  box-sizing: border-box;
 }
 .gallery-counter {
   font-size: 14px; font-weight: 600; color: var(--text-muted);
@@ -642,7 +644,4 @@ const obs = new IntersectionObserver(entries => {
 </script>
 </body>
 </html>
-
-
-
 
