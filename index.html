@@ -173,11 +173,11 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .text-content-resumo {
   column-count: 2;
   column-gap: 56px;
+  column-fill: balance;
 }
-.text-content-resumo p {
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-}
+/* Sem break-inside:avoid aqui de propósito: como o resumo costuma ser
+   um único parágrafo longo, "avoid" impede o navegador de dividir o
+   texto entre as colunas e ele acaba todo empilhado numa coluna só. */
 
 /* ─── GALERIA DE FOTOS (CARROSSEL) ─── */
 .gallery-wrap {
@@ -205,6 +205,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   font-size: 14px; font-weight: 600; color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
+.gallery-header-text { flex: 1 1 420px; min-width: 0; }
+.gallery-header-controls { flex-shrink: 0; }
 
 /* Fonte das imagens da galeria */
 .gallery-fonte {
@@ -215,8 +217,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
-.gallery-fonte a { color: var(--text-muted); text-decoration: underline; }
+.gallery-fonte a { color: var(--text-muted); text-decoration: underline; overflow-wrap: anywhere; word-break: break-all; }
 .gallery-fonte a:hover { color: var(--text-main); }
 
 /* ─── SEÇÃO: TEXTOS DE APOIO (descrição de vídeo / galeria) ─── */
@@ -287,9 +291,12 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
   .card { padding: 32px 24px; border-radius: var(--radius-md); }
   .grid-2, .autor-grid { grid-template-columns: 1fr; gap: 32px; }
   
-  h1 { text-align: left; font-size: 24px; }
-  .hero-sub { text-align: left; }
+  h1 { font-size: 24px; }
   .hero-inner { padding-top: 120px; }
+
+  .gallery-header { flex-direction: column; align-items: stretch; }
+  .gallery-header-text { flex: 1 1 auto; width: 100%; }
+  .gallery-header-controls { width: 100%; justify-content: space-between; }
   
   .banner-mobile-card { display: block; margin-bottom: 16px; }
   .banner-fullscreen-box { display: flex; width: 100%; margin-bottom: 16px; }
@@ -415,13 +422,13 @@ const C = {
 
 <section id="galeria-sec" class="inner">
   <div class="card">
-    <div class="flex justify-between items-end mb-4 flex-wrap gap-4">
-      <div>
+    <div class="flex justify-between items-end mb-4 flex-wrap gap-4 gallery-header">
+      <div class="gallery-header-text">
         <div class="label">Galeria</div>
         <h2 style="margin: 0;">Imagens de ILPIs mineiras divulgadas pelo MPMG:</h2>
         <p class="section-desc" id="j-galeria-desc"></p>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 gallery-header-controls">
         <span class="gallery-counter" id="j-gal-counter">1 / 11</span>
         <div class="flex gap-2">
           <button class="btn-icon" id="btn-gal-prev" aria-label="Anterior">
