@@ -166,7 +166,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .tags span { background: var(--surface); color: var(--text-main); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 6px 14px; font-size: 12px; font-weight: 500; letter-spacing: 0.02em; }
 .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
 .hero-meta { margin-top: 32px; font-size: 13px; color: var(--text-muted); text-align: left; font-weight: 500; }
-.text-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; }
+.text-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; text-align: justify; }
 .text-content p:last-child { margin-bottom: 0; }
 
 /* ─── GALERIA DE FOTOS (CARROSSEL) ─── */
@@ -202,6 +202,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   color: var(--text-muted);
   max-width: 680px;
   margin-top: 8px;
+  text-align: justify;
 }
 
 /* ─── VIDEO & BANNER ─── */
@@ -214,7 +215,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .banner-mobile-card { display: none; background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px; text-align: center; margin-bottom: 24px; }
 
 /* ─── SCRIPT & AUTOR ─── */
-.script-desc { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 32px; max-width: 680px; }
+.script-desc { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 32px; max-width: 680px; text-align: justify; }
 .script-img-wrap { border-radius: var(--radius-md); overflow-x: auto; border: 1px solid var(--border); background: var(--bg-color); padding: 24px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
 .script-img-wrap::-webkit-scrollbar { height: 8px; }
 .script-img-wrap::-webkit-scrollbar-track { background: transparent; }
@@ -301,8 +302,8 @@ const C = {
   galeria: Array.from({ length: 8 }, (_, i) => `foto${i + 1}.jpg`),
 
   /* ── Textos de apoio das seções ── edite livremente aqui ── */
-  videoDesc:   "Neste vídeo tutorial, é apresentado o passo a passo para a elaboração de estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs) por meio do script em Grasshopper desenvolvido neste Trabalho de Conclusão de Curso.",
-  galeriaDesc: "De acordo com o Ministério Público de Minas Gerais (MPMG), em publicação de março de 2026, todas as Instituições de Longa Permanência para Idosos (ILPIs) e as Residências Inclusivas (RIs) inspecionadas até aquele momento apresentaram irregularidades relacionadas à infraestrutura, à acessibilidade e/ou às práticas de cuidado. As imagens a seguir ilustram algumas das condições identificadas durante as inspeções realizadas pelo órgão. Fonte das imagens: Ministério Público de Minas Gerais (MPMG). <em>MPMG revela violações graves de direitos fundamentais em instituições de acolhimento do interior de Minas Gerais</em>. 2026. Disponível em: <a href=\"https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml</a>. Acesso em: 05 jun. 2026.",
+  videoDesc:   "Descrição do vídeo — adicione aqui um breve resumo do que será demonstrado no tutorial.",
+  galeriaDesc: "Descrição da galeria — adicione aqui um breve texto de contexto sobre as imagens exibidas.",
 
   /* ── Sobre o projeto ── */
   resumo: [
@@ -381,7 +382,7 @@ const C = {
   <div class="card grid-2">
     <div>
       <div class="label">Sobre o projeto</div>
-      <h2>Introdução</h2>
+      <h2>O que você vai encontrar neste tutorial</h2>
     </div>
     <div class="text-content" id="j-resumo"></div>
   </div>
@@ -530,7 +531,7 @@ el('j-meta').innerHTML     = `<div style="font-weight: 500;">Orientador(a): ${C.
 
 /* ─── TEXTOS DE APOIO (vídeo / galeria) ─── */
 el('j-video-desc').textContent   = C.videoDesc;
-el('j-galeria-desc').textContent = C.galeriaDesc;
+el('j-galeria-desc').innerHTML   = C.galeriaDesc;
 
 /* ─── CONSTRUÇÃO DA GALERIA ─── */
 const track = el('j-gallery-track');
@@ -644,6 +645,4 @@ const obs = new IntersectionObserver(entries => {
 </script>
 </body>
 </html>
-
-
 
