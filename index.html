@@ -169,6 +169,16 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .text-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; text-align: justify; }
 .text-content p:last-child { margin-bottom: 0; }
 
+/* Resumo em colunas — aproveita melhor a largura da seção */
+.text-content-resumo {
+  column-count: 2;
+  column-gap: 56px;
+}
+.text-content-resumo p {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
 /* ─── GALERIA DE FOTOS (CARROSSEL) ─── */
 .gallery-wrap {
   position: relative;
@@ -195,6 +205,19 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   font-size: 14px; font-weight: 600; color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
+
+/* Fonte das imagens da galeria */
+.gallery-fonte {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  text-align: justify;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.gallery-fonte a { color: var(--text-muted); text-decoration: underline; }
+.gallery-fonte a:hover { color: var(--text-main); }
 
 /* ─── SEÇÃO: TEXTOS DE APOIO (descrição de vídeo / galeria) ─── */
 .section-desc {
@@ -236,6 +259,7 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 /* ─── MOBILE RESPONSIVE ─── */
 @media(max-width: 900px) {
   .art-container { display: none; }
+  .text-content-resumo { column-count: 1; }
 }
 
 @media(max-width: 768px) {
@@ -303,7 +327,8 @@ const C = {
 
   /* ── Textos de apoio das seções ── edite livremente aqui ── */
   videoDesc:   "Neste vídeo tutorial é apresentado o passo a passo para a elaboração de estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs) por meio do script em Grasshopper desenvolvido neste Trabalho de Conclusão de Curso.",
-  galeriaDesc: "De acordo com o Ministério Público de Minas Gerais (MPMG), em publicação de março de 2026, todas as Instituições de Longa Permanência para Idosos (ILPIs) e as Residências Inclusivas (RIs) inspecionadas até aquele momento apresentaram irregularidades relacionadas à infraestrutura, à acessibilidade e/ou às práticas de cuidado. As imagens a seguir ilustram algumas das condições identificadas durante as inspeções realizadas pelo órgão. Fonte das imagens: Ministério Público de Minas Gerais (MPMG). <em>MPMG revela violações graves de direitos fundamentais em instituições de acolhimento do interior de Minas Gerais</em>. 2026. Disponível em: <a href=\"https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml</a>. Acesso em: 05 jun. 2026.",
+  galeriaDesc: "De acordo com o Ministério Público de Minas Gerais (MPMG), em publicação de março de 2026, todas as Instituições de Longa Permanência para Idosos (ILPIs) e as Residências Inclusivas (RIs) inspecionadas até aquele momento apresentaram irregularidades relacionadas à infraestrutura, à acessibilidade e/ou às práticas de cuidado. As imagens a seguir ilustram algumas das condições identificadas durante as inspeções realizadas pelo órgão.",
+  galeriaFonte: "Fonte das imagens: Ministério Público de Minas Gerais (MPMG). <em>MPMG revela violações graves de direitos fundamentais em instituições de acolhimento do interior de Minas Gerais</em>. 2026. Disponível em: <a href=\"https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml</a>. Acesso em: 05 jun. 2026.",
 
   /* ── Sobre o projeto ── */
   resumo: [
@@ -379,12 +404,12 @@ const C = {
 </section>
 
 <section id="sobre" class="inner">
-  <div class="card grid-2">
-    <div>
+  <div class="card">
+    <div class="mb-4">
       <div class="label">Sobre o projeto</div>
       <h2>Resumo</h2>
     </div>
-    <div class="text-content" id="j-resumo"></div>
+    <div class="text-content text-content-resumo" id="j-resumo"></div>
   </div>
 </section>
 
@@ -414,6 +439,8 @@ const C = {
         <!-- As imagens serão inseridas aqui via JavaScript -->
       </div>
     </div>
+
+    <p class="gallery-fonte" id="j-galeria-fonte"></p>
   </div>
 </section>
 
@@ -532,6 +559,7 @@ el('j-meta').innerHTML     = `<div style="font-weight: 500;">Orientador(a): ${C.
 /* ─── TEXTOS DE APOIO (vídeo / galeria) ─── */
 el('j-video-desc').textContent   = C.videoDesc;
 el('j-galeria-desc').innerHTML   = C.galeriaDesc;
+el('j-galeria-fonte').innerHTML  = C.galeriaFonte;
 
 /* ─── CONSTRUÇÃO DA GALERIA ─── */
 const track = el('j-gallery-track');
@@ -645,6 +673,8 @@ const obs = new IntersectionObserver(entries => {
 </script>
 </body>
 </html>
+
+
 
 
 
