@@ -104,7 +104,7 @@ nav {
   font-size: 14px; font-weight: 500; color: var(--text-muted);
   padding: 8px 16px; border-radius: var(--radius-pill);
   transition: var(--transition);
-  white-space: nowrap;
+  white-space: nowrap; /* Garante que o texto não quebre em duas linhas */
 }
 .nav-links a:hover, .nav-links a.act {
   background: var(--border-light); color: var(--text-main);
@@ -226,28 +226,14 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   text-align: justify;
 }
 
-/* ─── VIDEO & BANNER & MATERIAL COMPLEMENTAR (PDFs) ─── */
+/* ─── VIDEO & BANNER & MATERIAL COMPLEMENTAR (PDFs incorporados) ─── */
 .video-wrap, .video-ph { border-radius: var(--radius-md); overflow: hidden; box-shadow: inset 0 0 0 1px var(--border); }
 .video-wrap { position: relative; padding-top: 56.25%; background: var(--border-light); }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 .video-ph { background: var(--bg-color); aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
-/* Container ajustado para PDFs no celular: proportion-locked, scrollável suave e sem distorção */
-.pdf-mobile-viewer {
-  width: 100%;
-  height: 600px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: var(--border-light);
-  overflow: hidden;
-  position: relative;
-}
-.pdf-mobile-viewer iframe,
-.pdf-mobile-viewer object {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
+.banner-object { width: 100%; height: 800px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.banner-mobile-card { display: none; background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px; text-align: center; margin-bottom: 24px; }
 
 /* ─── AUTOR ─── */
 .autor-grid { display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: center; }
@@ -301,9 +287,17 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
   
   .gallery-item { aspect-ratio: 4 / 3; max-height: none; }
 
-  /* Ajuste de altura e proporção fluida no celular para evitar distorção visual mantendo o embed visível */
-  .pdf-mobile-viewer {
-    height: 420px;
+  /* PDFs incorporados (banner e material complementar): altura fixa de 800px
+     distorce a proporção em telas estreitas. Trocamos por aspect-ratio para
+     que a altura acompanhe a largura mantendo as proporções reais dos PDFs. */
+  .banner-object {
+    height: auto;
+  }
+  #banner .banner-object {
+    aspect-ratio: 0.707 / 1; /* pôster A1 vertical (594 x 841 mm) */
+  }
+  #material .banner-object {
+    aspect-ratio: 16 / 9; /* slides widescreen */
   }
 }
 </style>
@@ -460,7 +454,7 @@ const C = {
         <div class="label">Síntese do Trabalho</div>
         <h2 style="margin:0;">Banner do projeto</h2>
       </div>
-      <div>
+      <div class="banner-fullscreen-box" id="banner-desktop-btn" style="display: none;">
         <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-secondary">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
           Abrir em tela cheia
@@ -468,14 +462,20 @@ const C = {
       </div>
     </div>
 
-    <div class="pdf-mobile-viewer mt-6">
-      <object data="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf#view=FitH" type="application/pdf" width="100%" height="100%">
-        <div style="padding: 48px; text-align: center; background: var(--border-light); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p style="margin-bottom: 16px;">Seu navegador não conseguiu exibir o PDF incorporado.</p>
-          <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-primary">Acessar PDF diretamente</a>
-        </div>
-      </object>
+    <div class="banner-mobile-card" id="banner-mobile-card" style="display: none;">
+      <p style="margin-bottom: 24px;">Para uma melhor experiência de leitura e visualização dos detalhes técnicos, recomendamos abrir o banner em tela cheia.</p>
+      <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-primary w-full justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        Visualizar arquivo pdf
+      </a>
     </div>
+
+    <object data="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" type="application/pdf" class="banner-object">
+      <div style="padding: 48px; text-align: center; background: var(--border-light); border-radius: var(--radius-sm);">
+        <p style="margin-bottom: 16px;">Seu navegador não conseguiu exibir o PDF incorporado.</p>
+        <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-primary">Acessar PDF diretamente</a>
+      </div>
+    </object>
   </div>
 </section>
 
@@ -487,22 +487,23 @@ const C = {
         <h2 style="margin:0;">Material complementar</h2>
         <p class="section-desc" id="j-material-desc"></p>
       </div>
-      <div>
-        <a id="j-material-fullscreen-link" target="_blank" class="btn-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
-          Abrir em tela cheia
-        </a>
-      </div>
+      <div class="banner-fullscreen-box" id="j-material-fullscreen-box" style="display: none;"></div>
     </div>
 
-    <div class="pdf-mobile-viewer mt-6">
-      <object id="j-material-object" type="application/pdf" width="100%" height="100%">
-        <div style="padding: 48px; text-align: center; background: var(--border-light); height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p style="margin-bottom: 16px;">Seu navegador não conseguiu exibir o PDF incorporado.</p>
-          <a id="j-material-link-fallback" target="_blank" class="btn-primary">Acessar PDF diretamente</a>
-        </div>
-      </object>
+    <div class="banner-mobile-card" id="material-mobile-card" style="display: none;">
+      <p style="margin-bottom: 24px;">Para uma melhor experiência de leitura, recomendamos abrir o material complementar em tela cheia.</p>
+      <a id="j-material-link-mobile" target="_blank" class="btn-primary w-full justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        Visualizar arquivo pdf
+      </a>
     </div>
+
+    <object id="j-material-object" type="application/pdf" class="banner-object">
+      <div style="padding: 48px; text-align: center; background: var(--border-light); border-radius: var(--radius-sm);">
+        <p style="margin-bottom: 16px;">Seu navegador não conseguiu exibir o PDF incorporado.</p>
+        <a id="j-material-link-fallback" target="_blank" class="btn-primary">Acessar PDF diretamente</a>
+      </div>
+    </object>
   </div>
 </section>
 
@@ -559,8 +560,26 @@ el('j-galeria-fonte').innerHTML  = C.galeriaFonte;
 el('j-material-desc').textContent = C.materialDesc;
 
 el('j-material-object').data = C.linkMaterial;
-el('j-material-fullscreen-link').href = C.linkMaterial;
+el('j-material-link-mobile').href = C.linkMaterial;
 el('j-material-link-fallback').href = C.linkMaterial;
+
+const materialFullscreenBox = el('j-material-fullscreen-box');
+materialFullscreenBox.innerHTML = `
+  <a href="${C.linkMaterial}" target="_blank" class="btn-secondary">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+    Abrir em tela cheia
+  </a>
+`;
+
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+if (isMobile) {
+  el('banner-mobile-card').style.display = 'block';
+  el('material-mobile-card').style.display = 'block';
+} else {
+  el('banner-desktop-btn').style.display = 'flex';
+  materialFullscreenBox.style.display = 'flex';
+}
 
 el('j-autor-nome').textContent = C.autor;
 el('j-autor-role').textContent = `${C.curso} — ${C.instituicao}`;
@@ -633,6 +652,5 @@ navMenu.querySelectorAll('a').forEach(link => {
 </script>
 </body>
 </html>
-
 
 
