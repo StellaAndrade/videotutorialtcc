@@ -144,8 +144,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 /* Container de Arte Abstrata (Planta Baixa) */
 .art-container {
   position: absolute;
-  right: 2%; /* Movido levemente para a direita */
-  top: 45%;  /* Movido levemente para cima */
+  right: 2%; 
+  top: 45%;  
   transform: translateY(-50%);
   width: 400px;
   height: 600px;
@@ -169,15 +169,11 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .text-content p { font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; text-align: justify; }
 .text-content p:last-child { margin-bottom: 0; }
 
-/* Resumo em colunas — aproveita melhor a largura da seção */
 .text-content-resumo {
   column-count: 2;
   column-gap: 56px;
   column-fill: balance;
 }
-/* Sem break-inside:avoid aqui de propósito: como o resumo costuma ser
-   um único parágrafo longo, "avoid" impede o navegador de dividir o
-   texto entre as colunas e ele acaba todo empilhado numa coluna só. */
 
 /* ─── GALERIA DE FOTOS (CARROSSEL) ─── */
 .gallery-wrap {
@@ -194,10 +190,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 }
 .gallery-item {
   min-width: 100%;
-  aspect-ratio: 2.2 / 1; /* Mais horizontal no desktop para ocupar menos espaço (estilo arquitetura) */
+  aspect-ratio: 2.2 / 1; 
   max-height: 500px;
-  object-fit: contain; /* Nunca corta a foto — encaixa inteira, com respiro ao redor quando a proporção não bate */
-  background: var(--border-light); /* Fundo/"moldura" visível nas laterais ou topo/base quando a foto não preenche tudo */
+  object-fit: contain; 
+  background: var(--border-light); 
   padding: 10px;
   box-sizing: border-box;
 }
@@ -208,7 +204,6 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .gallery-header-text { flex: 1 1 420px; min-width: 0; }
 .gallery-header-controls { flex-shrink: 0; }
 
-/* Fonte das imagens da galeria */
 .gallery-fonte {
   font-size: 12px;
   line-height: 1.7;
@@ -223,7 +218,6 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .gallery-fonte a { color: var(--text-muted); text-decoration: underline; overflow-wrap: anywhere; word-break: break-all; }
 .gallery-fonte a:hover { color: var(--text-main); }
 
-/* ─── SEÇÃO: TEXTOS DE APOIO (descrição de vídeo / galeria) ─── */
 .section-desc {
   font-size: 1.05rem;
   color: var(--text-muted);
@@ -232,7 +226,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
   text-align: justify;
 }
 
-/* ─── VIDEO & BANNER ─── */
+/* ─── VIDEO & BANNER & MATERIAL COMPLEMENTAR (PDFs incorporados) ─── */
 .video-wrap, .video-ph { border-radius: var(--radius-md); overflow: hidden; box-shadow: inset 0 0 0 1px var(--border); }
 .video-wrap { position: relative; padding-top: 56.25%; background: var(--border-light); }
 .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
@@ -241,15 +235,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .banner-object { width: 100%; height: 800px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
 .banner-mobile-card { display: none; background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px; text-align: center; margin-bottom: 24px; }
 
-/* ─── SCRIPT & AUTOR ─── */
-.script-desc { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 32px; max-width: 680px; text-align: justify; }
-.script-img-wrap { border-radius: var(--radius-md); overflow-x: auto; border: 1px solid var(--border); background: var(--bg-color); padding: 24px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); }
-.script-img-wrap::-webkit-scrollbar { height: 8px; }
-.script-img-wrap::-webkit-scrollbar-track { background: transparent; }
-.script-img-wrap::-webkit-scrollbar-thumb { background: #D6D3D1; border-radius: 4px; }
-.script-img-wrap img { border-radius: var(--radius-sm); min-width: 900px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-.script-hint { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-
+/* ─── AUTOR ─── */
 .autor-grid { display: grid; grid-template-columns: auto 1fr; gap: 56px; align-items: center; }
 .avatar-wrap { position: relative; width: 180px; height: 180px; flex-shrink: 0; }
 .avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; position: relative; z-index: 2; border: 4px solid var(--surface); }
@@ -267,10 +253,9 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
 }
 
 @media(max-width: 768px) {
-  /* Menu Mobile Overlay */
   nav { 
     width: auto; left: 16px; right: 16px; top: 16px; 
-    transform: none; /* Crucial: Remove o transform que quebrava o menu de tela cheia */
+    transform: none; 
     padding: 12px 20px; justify-content: space-between; border-radius: var(--radius-pill); 
   }
   .brand { display: block; }
@@ -298,15 +283,9 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
   .gallery-header-text { flex: 1 1 auto; width: 100%; }
   .gallery-header-controls { width: 100%; justify-content: space-between; }
   
-  .banner-mobile-card { display: block; margin-bottom: 16px; }
-  .banner-fullscreen-box { display: flex; width: 100%; margin-bottom: 16px; }
-  .banner-fullscreen-box a { width: 100%; justify-content: center; }
-  .banner-object { display: block; height: 500px; } /* Permite visualizar o banner no celular sem distorcer */
-  
   .avatar-wrap { width: 140px; height: 140px; margin: 0 auto; }
-  .script-img-wrap img { min-width: 700px; }
   
-  .gallery-item { aspect-ratio: 4 / 3; max-height: none; } /* Fotos mais quadradas no celular para aproveitar a tela */
+  .gallery-item { aspect-ratio: 4 / 3; max-height: none; }
 }
 </style>
 </head>
@@ -322,27 +301,24 @@ const C = {
   ano:          "2026/1",
   orientador:   "Rejane Magiag Loura",
 
-  /* ── Vídeo ── cole aqui só o ID do YouTube (parte após ?v=) */
-  youtubeId:    "iIktymj76N4",       /* ex: "dQw4w9WgXcQ" */
+  youtubeId:    "iIktymj76N4",       
   linkBanner:   "A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf", 
 
-  /* ── Contato ── */
+  linkMaterial: "Informa%C3%A7%C3%B5es%20completas.pdf", 
+  materialDesc: "Apresentação em slides com o conteúdo completo do trabalho — introdução, justificativa, objetivos, revisão teórica, metodologia e principais resultados do modelo paramétrico desenvolvido.",
+
   email:        "stella.andradepc@gmail.com",
 
-  /* ── Fotos da Galeria (1 a 11) ── */
   galeria: Array.from({ length: 8 }, (_, i) => `foto${i + 1}.jpg`),
 
-  /* ── Textos de apoio das seções ── edite livremente aqui ── */
-  videoDesc:   "Neste vídeo tutorial é apresentado o passo a passo para a elaboração de estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs) por meio do script em Grasshopper desenvolvido neste Trabalho de Conclusão de Curso.",
+  videoDesc:    "Neste vídeo tutorial é apresentado o passo a passo para a elaboração de estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs) por meio do script em Grasshopper desenvolvido neste Trabalho de Conclusão de Curso.",
   galeriaDesc: "De acordo com o Ministério Público de Minas Gerais (MPMG), em publicação de março de 2026, todas as Instituições de Longa Permanência para Idosos (ILPIs) e as Residências Inclusivas (RIs) inspecionadas até aquele momento apresentaram irregularidades relacionadas à infraestrutura, à acessibilidade e/ou às práticas de cuidado. As imagens a seguir ilustram algumas das condições identificadas durante as inspeções realizadas pelo órgão.",
   galeriaFonte: "Fonte das imagens: Ministério Público de Minas Gerais (MPMG). <em>MPMG revela violações graves de direitos fundamentais em instituições de acolhimento do interior de Minas Gerais</em>. 2026. Disponível em: <a href=\"https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml\" target=\"_blank\" rel=\"noopener noreferrer\">https://www.mpmg.mp.br/portal/menu/comunicacao/noticias/mpmg-revela-violacoes-graves-de-direitos-fundamentais-em-instituicoes-de-acolhimento-do-interior-de-minas-gerais.shtml</a>. Acesso em: 05 jun. 2026.",
 
-  /* ── Sobre o projeto ── */
   resumo: [
     "Este trabalho apresenta o desenvolvimento de um modelo paramétrico de referência para a elaboração de estudos preliminares de Instituições de Longa Permanência para Idosos (ILPIs). Para tanto, o objetivo é oferecer um instrumento de apoio à tomada de decisão projetual que integre critérios normativos, espaciais e ambientais desde as etapas iniciais do projeto arquitetônico. Como estudo de caso e para o desenvolvimento deste trabalho, foi adotada uma unidade destinada a 20 residentes com grau III de dependência. O projeto é fundamentado nos princípios do metadesign que se refere a projetar o modo de se projetar. Nele são convertidos requisitos qualitativos em indicadores quantitativos que permitem a geração, avaliação e comparação de alternativas projetuais. A metodologia utiliza os softwares Rhinoceros 3D, Grasshopper, Python e o plugin Ladybug para integrar parâmetros relacionados à geometria do terreno, legislação urbanística, insolação, ventilação, volumetria e relações de adjacência entre os ambientes. Assim, o sistema foi estruturado a partir de um módulo básico de 6,60 × 6,60 m, definido com base nas exigências da RDC nº 502/2021 da ANVISA e da ABNT NBR 9050, para a geração automatizada de diferentes configurações arquitetônicas. Como resultado, o modelo produz múltiplas alternativas projetuais e, ao arquiteto, oferece um ponto de partida qualificado para a concepção dos projetos de ILPIs. Portanto, conclui-se que o modelo amplia a exploração de alternativas em um curto período de tempo, reduz o retrabalho e incorpora requisitos normativos e de conforto ambiental. Isso desde a fase de estudo preliminar, sem substituir o julgamento crítico e o poder decisório do arquiteto. Além de sua aplicação para ILPIs, a estrutura paramétrica deste projeto apresenta potencial de adaptação para outras tipologias arquitetônicas, desde que organizadas em uma lógica modular. Deste modo, permite a criação de projetos que integram critérios normativos, espaciais e ambientais a partir das etapas iniciais de concepção arquitetônica."
   ],
 
-  /* ── Bio ── */
   bio: "Stella Andrade é graduanda em Arquitetura e Urbanismo pela Universidade Federal de Minas Gerais (UFMG), com interesse em tecnologias digitais voltadas à arquitetura e ao urbanismo. Participou de um projeto de iniciação científica sobre arquitetura e inteligência artificial, desenvolvido no âmbito de uma pesquisa de pós-doutorado da UFMG. Seus interesses acadêmicos incluem design computacional, modelagem paramétrica e o uso de tecnologias digitais nos processos de projeto arquitetônico."
 };
 </script>
@@ -355,7 +331,7 @@ const C = {
     <a href="#galeria-sec" data-s="galeria-sec">Galeria</a>
     <a href="#video" data-s="video">Vídeo</a>
     <a href="#banner" data-s="banner">Banner</a>
-    <a href="#script" data-s="script">Script</a>
+    <a href="#material" data-s="material">Material complementar</a>
     <a href="#autor" data-s="autor">Autor</a>
   </div>
   <button class="menu-btn" id="btn-menu" aria-label="Abrir Menu">
@@ -372,7 +348,6 @@ const C = {
     <div class="art-block" style="top: 120px; left: 60px; background: #C4AD81;"></div>
     <div class="art-block" style="top: 180px; left: 0px; background: #F6E6AA;"></div>
     
-    <!-- Bloco principal (Fundo Cinza Claro) -->
     <div style="position: absolute; top: 180px; left: 60px; width: 180px; height: 300px; background: #E5E5E5; border: 1px solid var(--border-light); z-index: -1;"></div>
     
     <div class="art-block" style="top: 240px; left: 120px; background: #AECDF2;"></div>
@@ -442,9 +417,7 @@ const C = {
     </div>
     
     <div class="gallery-wrap mt-6">
-      <div class="gallery-track" id="j-gallery-track">
-        <!-- As imagens serão inseridas aqui via JavaScript -->
-      </div>
+      <div class="gallery-track" id="j-gallery-track"></div>
     </div>
 
     <p class="gallery-fonte" id="j-galeria-fonte"></p>
@@ -469,7 +442,8 @@ const C = {
         <div class="label">Síntese do Trabalho</div>
         <h2 style="margin:0;">Banner do projeto</h2>
       </div>
-      <div class="banner-fullscreen-box">
+      <!-- Exibido apenas em telas maiores (Desktop) -->
+      <div class="banner-fullscreen-box" id="banner-desktop-btn" style="display: none;">
         <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-secondary">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
           Abrir em tela cheia
@@ -477,11 +451,12 @@ const C = {
       </div>
     </div>
 
-    <div class="banner-mobile-card">
+    <!-- Exibido apenas em dispositivos móveis (Celular) -->
+    <div class="banner-mobile-card" id="banner-mobile-card" style="display: none;">
       <p style="margin-bottom: 24px;">Para uma melhor experiência de leitura e visualização dos detalhes técnicos, recomendamos abrir o banner em tela cheia.</p>
       <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-primary w-full justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-        Visualizar Arquivo PDF
+        Visualizar arquivo pdf
       </a>
     </div>
 
@@ -494,23 +469,33 @@ const C = {
   </div>
 </section>
 
-<section id="script" class="inner">
+<section id="material" class="inner">
   <div class="card">
-    <div class="mb-4">
-      <div class="label">Definição paramétrica</div>
-      <h2>Script em Grasshopper</h2>
-      <p class="script-desc">Visão geral do script paramétrico desenvolvido no Grasshopper para geração e otimização de plantas de ILPIs — da geração do terreno à configuração final das adjacências.</p>
+    <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+      <div>
+        <div class="label">Documentação complementar</div>
+        <h2 style="margin:0;">Material complementar</h2>
+        <p class="section-desc" id="j-material-desc"></p>
+      </div>
+      <!-- Exibido apenas em telas maiores (Desktop) -->
+      <div class="banner-fullscreen-box" id="j-material-fullscreen-box" style="display: none;"></div>
     </div>
-    
-    <div class="script-img-wrap">
-      <img src="IMAGEM_TOTAL_recortada.PNG" alt="Visão geral do script paramétrico no Grasshopper">
+
+    <!-- Exibido apenas em dispositivos móveis (Celular) -->
+    <div class="banner-mobile-card" id="material-mobile-card" style="display: none;">
+      <p style="margin-bottom: 24px;">Para uma melhor experiência de leitura, recomendamos abrir o material complementar em tela cheia.</p>
+      <a id="j-material-link-mobile" target="_blank" class="btn-primary w-full justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+        Visualizar arquivo pdf
+      </a>
     </div>
-    
-    <p class="script-hint">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-      Role horizontalmente para explorar
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-    </p>
+
+    <object id="j-material-object" type="application/pdf" class="banner-object">
+      <div style="padding: 48px; text-align: center; background: var(--border-light); border-radius: var(--radius-sm);">
+        <p style="margin-bottom: 16px;">Seu navegador não conseguiu exibir o PDF incorporado.</p>
+        <a id="j-material-link-fallback" target="_blank" class="btn-primary">Acessar PDF diretamente</a>
+      </div>
+    </object>
   </div>
 </section>
 
@@ -563,10 +548,47 @@ el('j-meta').innerHTML     = `<div style="font-weight: 500;">Orientador(a): ${C.
   el('j-tags').appendChild(s);
 });
 
-/* ─── TEXTOS DE APOIO (vídeo / galeria) ─── */
+/* ─── TEXTOS DE APOIO ─── */
 el('j-video-desc').textContent   = C.videoDesc;
 el('j-galeria-desc').innerHTML   = C.galeriaDesc;
 el('j-galeria-fonte').innerHTML  = C.galeriaFonte;
+el('j-material-desc').textContent = C.materialDesc;
+
+/* ─── MATERIAL COMPLEMENTAR CONFIGS ─── */
+el('j-material-object').data = C.linkMaterial;
+el('j-material-link-mobile').href = C.linkMaterial;
+el('j-material-link-fallback').href = C.linkMaterial;
+
+const materialFullscreenBox = el('j-material-fullscreen-box');
+materialFullscreenBox.innerHTML = `
+  <a href="${C.linkMaterial}" target="_blank" class="btn-secondary">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+    Abrir em tela cheia
+  </a>
+`;
+
+/* ─── VERIFICAÇÃO DE DISPOSITIVO (Celular vs Desktop) ─── */
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+
+if (isMobile) {
+  // Mostra apenas o botão "Visualizar arquivo pdf" no celular
+  el('banner-mobile-card').style.display = 'block';
+  el('material-mobile-card').style.display = 'block';
+} else {
+  // Mostra apenas o botão "Abrir em tela cheia" no desktop
+  el('banner-desktop-btn').style.display = 'flex';
+  materialFullscreenBox.style.display = 'flex';
+}
+
+/* ─── AUTOR ─── */
+el('j-autor-nome').textContent = C.autor;
+el('j-autor-role').textContent = `${C.curso} — ${C.instituicao}`;
+el('j-autor-bio').innerHTML = `<p>${C.bio}</p>`;
+el('j-email').textContent = C.email;
+el('j-email').href = `mailto:${C.email}`;
+
+el('j-foot-l').textContent = `© ${C.ano} ${C.autor}. Todos os direitos reservados.`;
+el('j-foot-r').textContent = `${C.titulo} — ${C.instituicao}`;
 
 /* ─── CONSTRUÇÃO DA GALERIA ─── */
 const track = el('j-gallery-track');
@@ -582,7 +604,6 @@ C.galeria.forEach((src, idx) => {
   img.className = 'gallery-item';
   img.alt = `Imagem ${idx + 1} do projeto`;
   img.loading = "lazy";
-  /* Fallback bonito caso a imagem não exista na pasta */
   img.onerror = () => { img.src = `https://placehold.co/1200x675/F5F5F4/A8D5BA?text=Foto+${idx + 1}+Indispon%C3%ADvel` };
   track.appendChild(img);
 });
@@ -600,83 +621,41 @@ btnPrev.addEventListener('click', () => {
 btnNext.addEventListener('click', () => {
   if (currentSlide < totalSlides - 1) { currentSlide++; updateGallery(); }
 });
-updateGallery(); // Init
+updateGallery();
 
-/* ─── VIDEO E TEXTOS ─── */
+/* ─── VÍDEO ─── */
 el('j-video').innerHTML = C.youtubeId
   ? `<div class="video-wrap">
        <iframe src="https://www.youtube.com/embed/${C.youtubeId}"
                allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
                allowfullscreen></iframe>
      </div>`
-  : `<div class="video-ph" style="padding: 40px; text-align: center;">
-       <svg style="width: 48px; height: 48px; color: var(--primary-dark); margin-bottom: 16px; opacity: 0.8;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="4"/><path d="m10 8 6 4-6 4Z"/></svg>
-       <p style="color: var(--text-main); font-weight: 600; font-size: 1.1rem; margin-bottom: 4px;">Nenhum vídeo configurado</p>
-       <p style="font-size: 14px;">Adicione seu <strong>C.youtubeId</strong> no código.</p>
-     </div>`;
+  : `<div class="video-ph"><p>Vídeo em breve</p></div>`;
 
-C.resumo.forEach(txt => {
+/* ─── RESUMO ─── */
+const resumoContainer = el('j-resumo');
+C.resumo.forEach(paragrafo => {
   const p = document.createElement('p');
-  p.textContent = txt;
-  el('j-resumo').appendChild(p);
+  p.textContent = paragrafo;
+  resumoContainer.appendChild(p);
 });
 
-/* ─── AUTOR E FOOTER ─── */
-el('j-autor-nome').textContent = C.autor;
-el('j-autor-role').textContent = `${C.curso} — ${C.instituicao}`;
-el('j-autor-bio').innerHTML    = `<p>${C.bio}</p>`;
-
-if(el('j-email')) {
-  el('j-email').href = `mailto:${C.email}`;
-  el('j-email').textContent = C.email;
-  el('j-email').addEventListener('mouseenter', function() { this.style.color = 'var(--primary-dark)'; });
-  el('j-email').addEventListener('mouseleave', function() { this.style.color = 'var(--text-muted)'; });
-}
-
-el('j-foot-l').textContent = `© ${C.ano} ${C.autor}`;
-el('j-foot-r').textContent = `${C.instituicao} · ${C.curso}`;
-
-/* ─── MENU MOBILE ─── */
-const menuBtn = el('btn-menu');
+/* ─── MENU MOBILE TOGGLE ─── */
+const btnMenu = el('btn-menu');
 const navMenu = el('nav-menu');
-let menuOpen = false;
 
-function toggleMenu() {
-  menuOpen = !menuOpen;
-  if(menuOpen) {
-    navMenu.classList.add('open');
-    menuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-    document.body.style.overflow = 'hidden'; // Evita rolar o fundo
-  } else {
-    navMenu.classList.remove('open');
-    menuBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>';
-    document.body.style.overflow = '';
-  }
-}
-
-menuBtn.addEventListener('click', toggleMenu);
-// Fecha o menu ao clicar em um link
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    if(window.innerWidth <= 768 && menuOpen) toggleMenu();
-  });
+btnMenu.addEventListener('click', () => {
+  navMenu.classList.toggle('open');
 });
 
-/* ─── ACTIVE NAV ON SCROLL ─── */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('act'));
-      const a = document.querySelector(`.nav-links a[data-s="${e.target.id}"]`);
-      if(a) a.classList.add('act');
-    }
+navMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navMenu.classList.remove('open');
   });
-},{threshold: 0.3});
-
-['inicio','sobre','galeria-sec','video','banner','script','autor'].forEach(id => {
-  const s = document.getElementById(id);
-  if(s) obs.observe(s);
 });
 </script>
 </body>
 </html>
+
+
+
