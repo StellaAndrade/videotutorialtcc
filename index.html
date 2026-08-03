@@ -53,10 +53,10 @@ body {
 
 /* Tipografia Hero - Caixa Alta, Justificada e Tamanho Menor (33px) */
 h1 { 
-  font-size: clamp(26px, 4vw, 33px); /* Reduzido para fechar em ~33px no desktop */
+  font-size: clamp(26px, 4vw, 33px);
   font-weight: 700; 
   letter-spacing: -0.02em; 
-  line-height: 1.35; /* Ajustado para melhor fluidez em textos justificados */
+  line-height: 1.35;
   color: var(--text-main); 
   margin-bottom: 24px; 
   max-width: 680px; 
@@ -104,6 +104,7 @@ nav {
   font-size: 14px; font-weight: 500; color: var(--text-muted);
   padding: 8px 16px; border-radius: var(--radius-pill);
   transition: var(--transition);
+  white-space: nowrap; /* Garante que o texto não quebre em duas linhas */
 }
 .nav-links a:hover, .nav-links a.act {
   background: var(--border-light); color: var(--text-main);
@@ -141,7 +142,6 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 /* ─── HERO SECTION ─── */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
 
-/* Container de Arte Abstrata (Planta Baixa) */
 .art-container {
   position: absolute;
   right: 2%; 
@@ -270,7 +270,7 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
     z-index: 150; padding: 24px; margin: 0;
   }
   .nav-links.open { opacity: 1; pointer-events: auto; }
-  .nav-links a { font-size: 1.5rem; font-weight: 600; width: 100%; text-align: center; padding: 16px; }
+  .nav-links a { font-size: 1.5rem; font-weight: 600; width: 100%; text-align: center; padding: 16px; white-space: nowrap; }
   
   section { padding: 60px 16px; }
   .card { padding: 32px 24px; border-radius: var(--radius-md); }
@@ -331,7 +331,7 @@ const C = {
     <a href="#galeria-sec" data-s="galeria-sec">Galeria</a>
     <a href="#video" data-s="video">Vídeo</a>
     <a href="#banner" data-s="banner">Banner</a>
-    <a href="#material" data-s="material">Material complementar</a>
+    <a href="#material" data-s="material" style="white-space: nowrap;">Material complementar</a>
     <a href="#autor" data-s="autor">Autor</a>
   </div>
   <button class="menu-btn" id="btn-menu" aria-label="Abrir Menu">
@@ -340,7 +340,6 @@ const C = {
 </nav>
 
 <section id="inicio" class="hero">
-  <!-- Arte abstrata baseada na planta -->
   <div class="art-container">
     <div class="art-block" style="top: 0px; left: 180px; background: #AECDF2;"></div>
     <div class="art-block" style="top: 60px; left: 240px; background: #F6E6AA;"></div>
@@ -442,7 +441,6 @@ const C = {
         <div class="label">Síntese do Trabalho</div>
         <h2 style="margin:0;">Banner do projeto</h2>
       </div>
-      <!-- Exibido apenas em telas maiores (Desktop) -->
       <div class="banner-fullscreen-box" id="banner-desktop-btn" style="display: none;">
         <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-secondary">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
@@ -451,7 +449,6 @@ const C = {
       </div>
     </div>
 
-    <!-- Exibido apenas em dispositivos móveis (Celular) -->
     <div class="banner-mobile-card" id="banner-mobile-card" style="display: none;">
       <p style="margin-bottom: 24px;">Para uma melhor experiência de leitura e visualização dos detalhes técnicos, recomendamos abrir o banner em tela cheia.</p>
       <a href="A1%20STELLA%20FINAL%20CERTO%20NOVO.pdf" target="_blank" class="btn-primary w-full justify-center">
@@ -477,11 +474,9 @@ const C = {
         <h2 style="margin:0;">Material complementar</h2>
         <p class="section-desc" id="j-material-desc"></p>
       </div>
-      <!-- Exibido apenas em telas maiores (Desktop) -->
       <div class="banner-fullscreen-box" id="j-material-fullscreen-box" style="display: none;"></div>
     </div>
 
-    <!-- Exibido apenas em dispositivos móveis (Celular) -->
     <div class="banner-mobile-card" id="material-mobile-card" style="display: none;">
       <p style="margin-bottom: 24px;">Para uma melhor experiência de leitura, recomendamos abrir o material complementar em tela cheia.</p>
       <a id="j-material-link-mobile" target="_blank" class="btn-primary w-full justify-center">
@@ -530,11 +525,9 @@ const C = {
 </footer>
 
 <script>
-/* ─── HELPERS ─── */
 function go(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
 function el(id){ return document.getElementById(id); }
 
-/* ─── POPULATE DADOS GERAIS ─── */
 document.title = `TCC — ${C.titulo}`;
 
 el('j-label').textContent = `Trabalho de Conclusão de Curso — ${C.ano}`;
@@ -548,13 +541,11 @@ el('j-meta').innerHTML     = `<div style="font-weight: 500;">Orientador(a): ${C.
   el('j-tags').appendChild(s);
 });
 
-/* ─── TEXTOS DE APOIO ─── */
 el('j-video-desc').textContent   = C.videoDesc;
 el('j-galeria-desc').innerHTML   = C.galeriaDesc;
 el('j-galeria-fonte').innerHTML  = C.galeriaFonte;
 el('j-material-desc').textContent = C.materialDesc;
 
-/* ─── MATERIAL COMPLEMENTAR CONFIGS ─── */
 el('j-material-object').data = C.linkMaterial;
 el('j-material-link-mobile').href = C.linkMaterial;
 el('j-material-link-fallback').href = C.linkMaterial;
@@ -567,20 +558,16 @@ materialFullscreenBox.innerHTML = `
   </a>
 `;
 
-/* ─── VERIFICAÇÃO DE DISPOSITIVO (Celular vs Desktop) ─── */
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
 if (isMobile) {
-  // Mostra apenas o botão "Visualizar arquivo pdf" no celular
   el('banner-mobile-card').style.display = 'block';
   el('material-mobile-card').style.display = 'block';
 } else {
-  // Mostra apenas o botão "Abrir em tela cheia" no desktop
   el('banner-desktop-btn').style.display = 'flex';
   materialFullscreenBox.style.display = 'flex';
 }
 
-/* ─── AUTOR ─── */
 el('j-autor-nome').textContent = C.autor;
 el('j-autor-role').textContent = `${C.curso} — ${C.instituicao}`;
 el('j-autor-bio').innerHTML = `<p>${C.bio}</p>`;
@@ -590,7 +577,6 @@ el('j-email').href = `mailto:${C.email}`;
 el('j-foot-l').textContent = `© ${C.ano} ${C.autor}. Todos os direitos reservados.`;
 el('j-foot-r').textContent = `${C.titulo} — ${C.instituicao}`;
 
-/* ─── CONSTRUÇÃO DA GALERIA ─── */
 const track = el('j-gallery-track');
 const btnPrev = el('btn-gal-prev');
 const btnNext = el('btn-gal-next');
@@ -623,7 +609,6 @@ btnNext.addEventListener('click', () => {
 });
 updateGallery();
 
-/* ─── VÍDEO ─── */
 el('j-video').innerHTML = C.youtubeId
   ? `<div class="video-wrap">
        <iframe src="https://www.youtube.com/embed/${C.youtubeId}"
@@ -632,7 +617,6 @@ el('j-video').innerHTML = C.youtubeId
      </div>`
   : `<div class="video-ph"><p>Vídeo em breve</p></div>`;
 
-/* ─── RESUMO ─── */
 const resumoContainer = el('j-resumo');
 C.resumo.forEach(paragrafo => {
   const p = document.createElement('p');
@@ -640,7 +624,6 @@ C.resumo.forEach(paragrafo => {
   resumoContainer.appendChild(p);
 });
 
-/* ─── MENU MOBILE TOGGLE ─── */
 const btnMenu = el('btn-menu');
 const navMenu = el('nav-menu');
 
@@ -656,8 +639,5 @@ navMenu.querySelectorAll('a').forEach(link => {
 </script>
 </body>
 </html>
-
-
-
 
 
