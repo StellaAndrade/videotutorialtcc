@@ -242,6 +242,18 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--primary-dark); 
 .avatar-ring { position: absolute; inset: -6px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); z-index: 1; opacity: 0.5; filter: blur(12px); }
 .autor-role { font-size: 15px; font-weight: 500; color: var(--primary-dark); margin-bottom: 20px; letter-spacing: 0.02em; }
 
+/* ─── CONTATO (E-MAIL + LINKEDIN) ─── */
+.contact-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; }
+.contact-box {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px; background: var(--border-light);
+  border-radius: var(--radius-sm); border: 1px solid var(--border);
+}
+.contact-icon { padding: 12px; background: var(--surface); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.contact-icon svg { color: var(--primary-dark); }
+.contact-box a { font-size: 14px; color: var(--text-muted); transition: color 0.2s; overflow-wrap: anywhere; }
+.contact-box a:hover { color: var(--text-main); }
+
 /* ─── FOOTER ─── */
 footer { padding: 48px 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 60px auto 0; flex-wrap: wrap; gap: 16px; }
 footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
@@ -299,6 +311,8 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
   #material .banner-object {
     aspect-ratio: 16 / 9; /* slides widescreen */
   }
+
+  .contact-box { width: 100%; }
 }
 
 /* ─── SIMULADOR: POVOAMENTO DO GRID ─── */
@@ -385,6 +399,7 @@ const C = {
   materialDesc: "Apresentação em slides com o conteúdo completo do trabalho — introdução, justificativa, objetivos, revisão teórica, metodologia e principais resultados do modelo paramétrico desenvolvido.",
 
   email:        "stella.andradepc@gmail.com",
+  linkedin:     "https://www.linkedin.com/in/SEU-PERFIL",   // ← troque pelo link do seu perfil
 
   galeria: Array.from({ length: 8 }, (_, i) => `foto${i + 1}.jpg`),
 
@@ -656,13 +671,25 @@ const C = {
       <p class="autor-role" id="j-autor-role"></p>
       <div class="text-content" id="j-autor-bio"></div>
       
-      <div class="mt-6 flex items-center gap-4" style="padding: 16px; background: var(--border-light); border-radius: var(--radius-sm); border: 1px solid var(--border);">
-        <div style="padding: 12px; background: var(--surface); border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-dark)"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <div class="contact-row">
+        <div class="contact-box">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div>
+            <p style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 2px;">Entrar em contato</p>
+            <a id="j-email"></a>
+          </div>
         </div>
-        <div>
-          <p style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 2px;">Entrar em contato</p>
-          <a id="j-email" style="font-size: 14px; color: var(--text-muted); transition: color 0.2s;"></a>
+
+        <div class="contact-box">
+          <div class="contact-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <p style="font-size: 13px; font-weight: 600; color: var(--text-main); margin-bottom: 2px;">LinkedIn</p>
+            <a id="j-linkedin" target="_blank" rel="noopener noreferrer"></a>
+          </div>
         </div>
       </div>
     </div>
@@ -723,6 +750,8 @@ el('j-autor-role').textContent = `${C.curso} — ${C.instituicao}`;
 el('j-autor-bio').innerHTML = `<p>${C.bio}</p>`;
 el('j-email').textContent = C.email;
 el('j-email').href = `mailto:${C.email}`;
+el('j-linkedin').href = C.linkedin;
+el('j-linkedin').textContent = C.linkedin.replace(www.linkedin.com/in/stella-andrade-carvalho);
 
 el('j-foot-l').textContent = `© ${C.ano} ${C.autor}. Todos os direitos reservados.`;
 el('j-foot-r').textContent = `${C.titulo} — ${C.instituicao}`;
