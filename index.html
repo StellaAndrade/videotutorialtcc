@@ -300,6 +300,70 @@ footer span { font-size: 12px; color: var(--text-muted); font-weight: 500; }
     aspect-ratio: 16 / 9; /* slides widescreen */
   }
 }
+
+/* ─── SIMULADOR: POVOAMENTO DO GRID ─── */
+#simulador .controls { display: flex; gap: 24px 32px; flex-wrap: wrap; margin: 16px 0 28px; }
+#simulador .group { flex: 1 1 220px; min-width: 200px; transition: opacity 0.2s ease; }
+#simulador .group h3 { font-size: 13px; font-weight: 600; color: var(--text-main); margin: 0 0 10px; }
+#simulador .group.disabled { opacity: 0.4; pointer-events: none; }
+#simulador .pillrow { display: flex; gap: 8px; flex-wrap: wrap; }
+#simulador .pill {
+  background: var(--surface); color: var(--text-main);
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  font-size: 14px; font-weight: 500; padding: 9px 18px; cursor: pointer;
+  transition: var(--transition);
+}
+#simulador .pill:hover { background: var(--border-light); border-color: #D6D3D1; }
+#simulador .pill.active { background: var(--text-main); border-color: var(--text-main); color: var(--surface); }
+
+#simulador .stage {
+  border-radius: var(--radius-md); background: var(--bg-color);
+  box-shadow: inset 0 0 0 1px var(--border); overflow: hidden;
+}
+#simulador .stage svg { display: block; width: 100%; height: auto; }
+
+#simulador .cube-top   { fill: #FAFAF9; }
+#simulador .cube-left  { fill: #E7E5E4; }
+#simulador .cube-right { fill: #D6D3D1; }
+#simulador .cube-top, #simulador .cube-left, #simulador .cube-right {
+  stroke: #44403C; stroke-width: 1.1; stroke-linejoin: round;
+}
+#simulador .cube {
+  opacity: 0; transform: translateY(35px);
+  transition: opacity 0.4s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#simulador .cube.in { opacity: 1; transform: translateY(0); }
+#simulador .cube.out {
+  opacity: 0 !important; transform: translateY(-15px) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+#simulador .terrain { fill: #DDE9D3; stroke: var(--primary-dark); stroke-width: 1.5; }
+#simulador .setback { fill: none; stroke: #C4575D; stroke-width: 2; stroke-dasharray: 7 5; }
+#simulador .fachada-label {
+  font-family: var(--font-sans); font-style: italic; font-weight: 600;
+  font-size: 13px; letter-spacing: 0.04em; fill: var(--text-main);
+}
+
+#simulador .legend {
+  display: flex; gap: 8px 24px; flex-wrap: wrap; min-height: 1.5em;
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);
+  font-size: 13px; color: var(--text-muted);
+}
+#simulador .legend b { color: var(--text-main); font-weight: 600; }
+
+@media (max-width: 768px) {
+  #simulador .group { flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #simulador .cube, #simulador .cube.out { transition: none !important; }
+}
+
+/* Menu com 8 itens: compacta um pouco em telas médias para não estourar */
+@media (min-width: 769px) and (max-width: 1080px) {
+  nav { gap: 16px; padding-left: 20px; }
+  .nav-links { gap: 2px; }
+  .nav-links a { padding: 8px 10px; font-size: 13px; }
+}
 </style>
 </head>
 <body>
@@ -343,6 +407,7 @@ const C = {
     <a href="#sobre" data-s="sobre">Sobre</a>
     <a href="#galeria-sec" data-s="galeria-sec">Galeria</a>
     <a href="#video" data-s="video">Vídeo</a>
+    <a href="#simulador" data-s="simulador">Simulador</a>
     <a href="#banner" data-s="banner">Banner</a>
     <a href="#material" data-s="material" style="white-space: nowrap;">Material complementar</a>
     <a href="#autor" data-s="autor">Autor</a>
@@ -444,6 +509,51 @@ const C = {
       <p class="section-desc" id="j-video-desc"></p>
     </div>
     <div id="j-video"></div>
+  </div>
+</section>
+
+<section id="simulador" class="inner">
+  <div class="card">
+    <div class="mb-4">
+      <div class="label">Simulação interativa</div>
+      <h2>Povoamento do grid</h2>
+      <p class="section-desc">Ajuste os parâmetros para ver o algoritmo de pontuação repovoar a massa edificada, célula a célula — mesma lógica do script Python (crescimento por score, pátio duplo obrigatório, 16 módulos).</p>
+    </div>
+
+    <div class="controls">
+      <div class="group">
+        <h3>Tipo de compactação</h3>
+        <div class="pillrow" data-group="compact">
+          <button class="pill" data-value="compactado">Compactado</button>
+          <button class="pill" data-value="espalhado">Espalhado</button>
+        </div>
+      </div>
+      <div class="group" id="shapeGroup">
+        <h3>Proporção alvo</h3>
+        <div class="pillrow" data-group="shape">
+          <button class="pill" data-value="longo">Longo</button>
+          <button class="pill" data-value="quadrado">Quadrado</button>
+          <button class="pill" data-value="profundo">Profundo</button>
+        </div>
+      </div>
+      <div class="group">
+        <h3>Qual proporção seguir</h3>
+        <div class="pillrow" data-group="follow">
+          <button class="pill" data-value="alvo">Proporção alvo</button>
+          <button class="pill" data-value="terreno">Proporção terreno</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <svg id="scene" viewBox="0 0 760 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vista isométrica do terreno com a massa edificada formada por módulos">
+        <g id="terrainLayer"></g>
+        <g id="buildingLayer"></g>
+        <g id="labelLayer"></g>
+      </svg>
+    </div>
+
+    <div class="legend" id="statusLine" aria-live="polite"></div>
   </div>
 </section>
 
@@ -649,6 +759,388 @@ navMenu.querySelectorAll('a').forEach(link => {
     navMenu.classList.remove('open');
   });
 });
+</script>
+
+<!-- Simulador: povoamento do grid -->
+<script>
+(function(){
+  var SITE_W = 12, SITE_H = 11, MARGIN = 1;
+  var BW0 = SITE_W - 2*MARGIN, BH0 = SITE_H - 2*MARGIN; 
+  var MODW = 6.6, MODH = 6.0; 
+  var TOTAL_MODULES = 16;     
+  var PESO_PROP = 4.0;        
+
+  var tileW = 64, tileH = 32, heightUnit = 34;
+  var originX = 380, originY = 70;
+
+  function isoX(x,y){ return originX + (x-y)*tileW/2; }
+  function isoY(x,y){ return originY + (x+y)*tileH/2; }
+
+  var state = { compact:'compactado', shape:'quadrado', follow:'alvo' };
+
+  var celulasValidas = (function(){
+    var s = new Set();
+    for(var i=0;i<BW0;i++) for(var j=0;j<BH0;j++) s.add(i+','+j);
+    return s;
+  })();
+
+  function vizinhos(cel){
+    var p = cel.split(','), i = +p[0], j = +p[1];
+    return [ (i+1)+','+j, (i-1)+','+j, i+','+(j+1), i+','+(j-1) ];
+  }
+  function ehInterna(cel, grupo){
+    return vizinhos(cel).every(function(v){ return grupo.has(v); });
+  }
+  function contarInternas(grupo){
+    var n = 0; grupo.forEach(function(c){ if(ehInterna(c,grupo)) n++; });
+    return n;
+  }
+  function contarSemVentilacao(grupo, patio){
+    var total = 0;
+    grupo.forEach(function(cel){
+      var ventilada = vizinhos(cel).some(function(v){ return !grupo.has(v) || patio.has(v); });
+      if(!ventilada) total++;
+    });
+    return total;
+  }
+  function conectado(grupo){
+    if(grupo.size === 0) return true;
+    var arr = Array.from(grupo);
+    var fila = [arr[0]], visitados = new Set();
+    while(fila.length){
+      var atual = fila.pop();
+      if(visitados.has(atual)) continue;
+      visitados.add(atual);
+      vizinhos(atual).forEach(function(v){ if(grupo.has(v) && !visitados.has(v)) fila.push(v); });
+    }
+    return visitados.size === grupo.size;
+  }
+  function bboxOf(grupo){
+    var xs=[], ys=[];
+    grupo.forEach(function(c){ var p=c.split(','); xs.push(+p[0]); ys.push(+p[1]); });
+    return { minX:Math.min.apply(null,xs), maxX:Math.max.apply(null,xs), minY:Math.min.apply(null,ys), maxY:Math.max.apply(null,ys) };
+  }
+  function bboxArea(grupo){
+    if(grupo.size === 0) return 0;
+    var b = bboxOf(grupo);
+    return (b.maxX-b.minX+1) * (b.maxY-b.minY+1);
+  }
+  function proporcaoGrupo(grupo){
+    if(grupo.size === 0) return 1.0;
+    var b = bboxOf(grupo);
+    var larguraM = (b.maxX-b.minX+1) * MODW;
+    var alturaM  = (b.maxY-b.minY+1) * MODH;
+    return larguraM / Math.max(0.1, alturaM);
+  }
+
+  function gerarPovoamento(pesoComp, pesoProp, targetRatio, startCell, compactMode, shapeMode, followMode){
+    function erroForma(grupo){ 
+      var r = proporcaoGrupo(grupo); 
+      return (Math.max(r / targetRatio, targetRatio / r) - 1.0); 
+    }
+
+    var celulaProtegida = startCell;
+    var conjunto = new Set([startCell]);
+    var candidatos = new Set(vizinhos(startCell).filter(function(v){ return celulasValidas.has(v); }));
+
+    var isLongoEspalhado = (compactMode === 'espalhado' && followMode === 'alvo' && shapeMode === 'longo');
+    var isProfundoEspalhado = (compactMode === 'espalhado' && followMode === 'alvo' && shapeMode === 'profundo');
+    var isTerrenoEspalhado = (compactMode === 'espalhado' && followMode === 'terreno');
+
+    while(conjunto.size < TOTAL_MODULES && candidatos.size){
+      var melhorCel = null, melhorScore = -Infinity;
+      candidatos.forEach(function(cel){
+        var contatos = vizinhos(cel).filter(function(v){ return conjunto.has(v); }).length;
+        var teste = new Set(conjunto); teste.add(cel);
+        var recompensaDensidade = Math.pow(contatos,2) * 100000 * pesoComp;
+        var penalidadeProporcao = erroForma(teste) * 600000 * pesoProp; 
+        
+        var areaBbox = bboxArea(teste);
+        var compactacao = areaBbox>0 ? teste.size/areaBbox : 1.0;
+        
+        // Peso de espalhamento bem mais forte para o Longo Espalhado se distanciar do Compacto
+        var pesoEspalhamentoFator = isLongoEspalhado ? 9500000 : ((isProfundoEspalhado || isTerrenoEspalhado) ? 5500000 : (compactMode === 'espalhado' ? 4500000 : 500));
+        var penalidadeEspalhamento = (1.0 - compactacao) * pesoEspalhamentoFator;
+        
+        var score = recompensaDensidade - penalidadeProporcao - penalidadeEspalhamento;
+        if(score > melhorScore){ melhorScore = score; melhorCel = cel; }
+      });
+      if(melhorCel === null) break;
+      conjunto.add(melhorCel);
+      candidatos.delete(melhorCel);
+      vizinhos(melhorCel).forEach(function(v){ if(celulasValidas.has(v) && !conjunto.has(v)) candidatos.add(v); });
+    }
+
+    var patio = new Set();
+    var internas = Array.from(conjunto).filter(function(c){ return ehInterna(c,conjunto); });
+    var melhorPar = null, melhorGanho = -Infinity;
+    internas.forEach(function(cel1){
+      vizinhos(cel1).forEach(function(cel2){
+        if(internas.indexOf(cel2) === -1) return;
+        var teste = new Set(conjunto); teste.delete(cel1); teste.delete(cel2);
+        if(!conectado(teste)) return;
+        var ganho = contarInternas(conjunto) - contarInternas(teste) + 5;
+        if(ganho > melhorGanho){ melhorGanho = ganho; melhorPar = [cel1, cel2]; }
+      });
+    });
+    if(melhorPar && melhorPar.indexOf(celulaProtegida) === -1){
+      conjunto.delete(melhorPar[0]); conjunto.delete(melhorPar[1]);
+      patio = new Set(melhorPar);
+    }
+
+    var mudou = true;
+    var limiteRemocoes = isLongoEspalhado ? 6 : ((isProfundoEspalhado || isTerrenoEspalhado) ? 5 : (compactMode === 'espalhado' ? 5 : 1));
+    var contadorRemocoes = 0;
+    
+    while(mudou && contadorRemocoes < limiteRemocoes){
+      mudou = false;
+      var internas2 = Array.from(conjunto).filter(function(c){ return ehInterna(c,conjunto); });
+      if(!internas2.length) break;
+      var melhorRemocao = null, melhorGanho2 = -Infinity;
+      internas2.forEach(function(candidata){
+        if(candidata === celulaProtegida) return;
+        var teste = new Set(conjunto); teste.delete(candidata);
+        if(!conectado(teste)) return;
+        var ganho = (contarInternas(conjunto)-contarInternas(teste)) * 10000;
+        if(ganho > melhorGanho2){ melhorGanho2 = ganho; melhorRemocao = candidata; }
+      });
+      if(melhorRemocao){ 
+        conjunto.delete(melhorRemocao); 
+        mudou = true; 
+        contadorRemocoes++;
+      }
+    }
+
+    var safety = 0;
+    while(conjunto.size < TOTAL_MODULES && safety < 1000){
+      safety++;
+      var melhorCelula = null, melhorScore2 = -Infinity;
+      celulasValidas.forEach(function(cel){
+        if(conjunto.has(cel) || patio.has(cel)) return;
+        var contatos = vizinhos(cel).filter(function(v){ return conjunto.has(v); }).length;
+        if(contatos === 0) return;
+        var teste = new Set(conjunto); teste.add(cel);
+        if(!conectado(teste)) return;
+        var penalidadeSemVent = contarSemVentilacao(teste, patio) * 10000000;
+        var recompensaDensidade = Math.pow(contatos,2) * 100000 * pesoComp;
+        var penalidadeProporcao = erroForma(teste) * 600000 * pesoProp;
+        
+        var areaBbox = bboxArea(teste);
+        var compactacao = areaBbox>0 ? teste.size/areaBbox : 1.0;
+        var pesoEspalhamentoFator = isLongoEspalhado ? 9500000 : ((isProfundoEspalhado || isTerrenoEspalhado) ? 5500000 : (compactMode === 'espalhado' ? 4500000 : 500));
+        var penalidadeEspalhamento = (1.0 - compactacao) * pesoEspalhamentoFator;
+        
+        var score = recompensaDensidade - penalidadeProporcao - penalidadeEspalhamento - penalidadeSemVent;
+        if(score > melhorScore2){ melhorScore2 = score; melhorCelula = cel; }
+      });
+      if(melhorCelula === null){
+        celulasValidas.forEach(function(cel){
+          if(melhorCelula) return;
+          if(conjunto.has(cel) || patio.has(cel)) return;
+          if(vizinhos(cel).some(function(v){ return conjunto.has(v); })) melhorCelula = cel;
+        });
+      }
+      if(melhorCelula === null) break;
+      conjunto.add(melhorCelula);
+    }
+
+    return { conjunto: conjunto, patio: patio };
+  }
+
+  var siteRatioM = (BW0*MODW) / (BH0*MODH);
+  
+  function targetRatioFor(shape, follow, compact){
+    var isEspalhado = (compact === 'espalhado');
+    
+    if(follow === 'terreno'){
+      return siteRatioM * (isEspalhado ? 1.35 : 1.0);
+    }
+    
+    if(shape === 'longo') return isEspalhado ? 1.95 : 2.4;
+    if(shape === 'profundo') return isEspalhado ? 0.45 : (1.0 / 2.4);
+    return isEspalhado ? 1.25 : 1.0;
+  }
+  
+  function pesoCompFor(compact){
+    return compact === 'compactado' ? 35.0 : 0.00001;
+  }
+
+  function growthOrder(cells){
+    if(cells.length === 0) return [];
+    var set = {};
+    cells.forEach(function(c){ set[c[0]+','+c[1]] = true; });
+    var arr = cells.map(function(c){ return {x:c[0], y:c[1]}; });
+    var seed = arr.reduce(function(a,b){ return (b.x < a.x || (b.x===a.x && b.y<a.y)) ? b : a; });
+    var visited = {}; visited[seed.x+','+seed.y] = true;
+    var order = [seed], queue = [seed];
+    var dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+    while(queue.length){
+      var c = queue.shift();
+      for(var i=0;i<dirs.length;i++){
+        var nx=c.x+dirs[i][0], ny=c.y+dirs[i][1], k=nx+','+ny;
+        if(set[k] && !visited[k]){ visited[k]=true; var cell={x:nx,y:ny}; order.push(cell); queue.push(cell); }
+      }
+    }
+    cells.forEach(function(c){ var k=c[0]+','+c[1]; if(!visited[k]){ visited[k]=true; order.push({x:c[0],y:c[1]}); } });
+    return order;
+  }
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function svgEl(tag, attrs){
+    var el = document.createElementNS(SVGNS, tag);
+    for(var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function pointsStr(pts){
+    return pts.map(function(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }).join(' ');
+  }
+  function cubeGroup(x, y, h){
+    var bx = isoX(x,y), by = isoY(x,y);
+    var ty = by - h*heightUnit;
+    var top = [ [bx, ty-tileH/2], [bx+tileW/2, ty], [bx, ty+tileH/2], [bx-tileW/2, ty] ];
+    var left = [ [bx-tileW/2, ty], [bx, ty+tileH/2], [bx, ty+tileH/2+h*heightUnit], [bx-tileW/2, ty+h*heightUnit] ];
+    var right = [ [bx, ty+tileH/2], [bx+tileW/2, ty], [bx+tileW/2, ty+h*heightUnit], [bx, ty+tileH/2+h*heightUnit] ];
+    var g = svgEl('g', {'class':'cube'});
+    g.appendChild(svgEl('polygon', {'class':'cube-left', points: pointsStr(left)}));
+    g.appendChild(svgEl('polygon', {'class':'cube-right', points: pointsStr(right)}));
+    g.appendChild(svgEl('polygon', {'class':'cube-top', points: pointsStr(top)}));
+    return g;
+  }
+
+  function drawTerrain(){
+    var layer = document.getElementById('terrainLayer');
+    layer.innerHTML = '';
+    var site = [ [0,0],[SITE_W,0],[SITE_W,SITE_H],[0,SITE_H] ].map(function(p){ return [isoX(p[0],p[1]), isoY(p[0],p[1])]; });
+    layer.appendChild(svgEl('polygon', {'class':'terrain', points: pointsStr(site)}));
+
+    var build = [ [MARGIN,MARGIN],[SITE_W-MARGIN,MARGIN],[SITE_W-MARGIN,SITE_H-MARGIN],[MARGIN,SITE_H-MARGIN] ].map(function(p){ return [isoX(p[0],p[1]), isoY(p[0],p[1])]; });
+    layer.appendChild(svgEl('polygon', {'class':'setback', points: pointsStr(build)}));
+
+    var labelLayer = document.getElementById('labelLayer');
+    labelLayer.innerHTML = '';
+    var p1 = [isoX(MARGIN,SITE_H-MARGIN), isoY(MARGIN,SITE_H-MARGIN)];
+    var p2 = [isoX(SITE_W-MARGIN,SITE_H-MARGIN), isoY(SITE_W-MARGIN,SITE_H-MARGIN)];
+    var midX = (p1[0]+p2[0])/2, midY = (p1[1]+p2[1])/2 + 26;
+    var angle = Math.atan2(p2[1]-p1[1], p2[0]-p1[0]) * 180/Math.PI;
+    var text = svgEl('text', {'class':'fachada-label', x:midX, y:midY, 'text-anchor':'middle',
+      transform:'rotate('+angle.toFixed(2)+' '+midX+' '+midY+')'});
+    text.textContent = 'FACHADA FRONTAL';
+    labelLayer.appendChild(text);
+  }
+
+  var currentCubes = [];
+  var rebuildTimer = null;
+
+  function redraw(){
+    var targetRatio = targetRatioFor(state.shape, state.follow, state.compact);
+    var pesoComp = pesoCompFor(state.compact);
+    
+    // Semente específica e isolada para o Longo Espalhado
+    var startCell = (state.compact === 'espalhado' && state.shape === 'longo')
+      ? (0 + ',' + Math.floor(BH0/2))
+      : (Math.floor(BW0/2) + ',' + (BH0 - 1));
+    
+    var res = gerarPovoamento(pesoComp, PESO_PROP, targetRatio, startCell, state.compact, state.shape, state.follow);
+
+    var cells = Array.from(res.conjunto).map(function(k){ var p=k.split(','); return [+p[0], +p[1]]; });
+    var b = bboxOf(res.conjunto);
+    var bw = b.maxX - b.minX + 1, bh = b.maxY - b.minY + 1;
+    var shiftX = MARGIN + Math.max(0, Math.floor((BW0-bw)/2)) - b.minX;
+    var shiftY = MARGIN + Math.max(0, Math.floor((BH0-bh)/2)) - b.minY;
+
+    var order = growthOrder(cells);
+    var layer = document.getElementById('buildingLayer');
+
+    var old = currentCubes.slice();
+    old.forEach(function(g){ g.classList.add('out'); });
+
+    clearTimeout(rebuildTimer);
+    rebuildTimer = setTimeout(function(){
+      old.forEach(function(g){ if(g.parentNode) g.parentNode.removeChild(g); });
+      var newCubes = [];
+
+      var domOrder = order.slice().sort(function(a, b){
+        var depthA = a.x + a.y;
+        var depthB = b.x + b.y;
+        if(depthA === depthB) return a.x - b.x;
+        return depthA - depthB;
+      });
+
+      var elementsMap = {};
+      domOrder.forEach(function(cell){
+        var g = cubeGroup(cell.x + shiftX, cell.y + shiftY, 1);
+        layer.appendChild(g);
+        elementsMap[cell.x + ',' + cell.y] = g;
+        newCubes.push(g);
+      });
+
+      order.forEach(function(cell, i){
+        var g = elementsMap[cell.x + ',' + cell.y];
+        void g.getBoundingClientRect();
+        setTimeout(function(){ g.classList.add('in'); }, 30 + i*40);
+      });
+
+      currentCubes = newCubes;
+    }, old.length ? 200 : 0);
+
+    var statusEl = document.getElementById('statusLine');
+    if(statusEl){
+      statusEl.innerHTML =
+        '<span><b>' + res.conjunto.size + '</b> módulos</span>' +
+        '<span><b>' + res.patio.size + '</b> células de pátio duplo</span>' +
+        '<span>proporção alvo: <b>' + targetRatio.toFixed(2) + '</b> · proporção obtida: <b>' + proporcaoGrupo(res.conjunto).toFixed(2) + '</b></span>';
+    }
+  }
+
+  function updateInterfaceState(){
+    var shapeGroup = document.getElementById('shapeGroup');
+    if(state.follow === 'terreno'){
+      shapeGroup.classList.add('disabled');
+    } else {
+      shapeGroup.classList.remove('disabled');
+    }
+  }
+
+  function setActive(group, value){
+    document.querySelectorAll('.pillrow[data-group="'+group+'"] .pill').forEach(function(btn){
+      var on = btn.getAttribute('data-value') === value;
+      btn.classList.toggle('active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  document.querySelectorAll('.pillrow').forEach(function(row){
+    var group = row.getAttribute('data-group');
+    row.querySelectorAll('.pill').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var val = btn.getAttribute('data-value');
+        if(state[group] === val) return;
+        state[group] = val;
+        setActive(group, val);
+        updateInterfaceState();
+        redraw();
+      });
+    });
+  });
+
+  setActive('compact', state.compact);
+  setActive('shape', state.shape);
+  setActive('follow', state.follow);
+  updateInterfaceState();
+
+  drawTerrain();
+
+  var iniciado = false;
+  function iniciar(){ if(iniciado) return; iniciado = true; redraw(); }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      if(entries.some(function(e){ return e.isIntersecting; })){ iniciar(); io.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(document.getElementById('scene'));
+  } else {
+    iniciar();
+  }
+})();
 </script>
 </body>
 </html>
